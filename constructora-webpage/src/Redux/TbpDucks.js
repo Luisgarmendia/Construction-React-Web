@@ -1,0 +1,7 @@
+//constantes
+
+
+//reducer
+
+
+//acciones

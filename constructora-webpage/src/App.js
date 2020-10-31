@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import SignIn from './Components/Login/SignIn';
+import {Provider} from 'react-redux';
+import generateStore from './Redux/Store'
+import SignUp from './Components/Login/SignUp';
+import Home from './Components/Home/HomePage';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(){
+    const store = generateStore();
+    return(
+        <Provider store = {store}>
+            <Router>
+                <Switch>
+                    <Route path="/SignIn" exact component={SignIn} />
+                    <Route path="/SignUp" exact component={SignUp} />
+                    <Route path="/Home" exact component={Home} />
+                </Switch>
+            </Router>
+        </Provider>
+    );
 }
 
 export default App;
