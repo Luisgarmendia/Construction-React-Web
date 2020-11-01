@@ -1,0 +1,36 @@
+.card-header {
+    padding: 0.2rem 1.25rem;
+    /* margin-bottom: 0; */
+    background-color: #ffffff;
+    border-bottom: 0px;
+}
+
+.card-body {
+    padding: 0rem 1.25rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.card {
+    border-radius: 0px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.flex-wrap {
+    margin-bottom: -35px;
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+    margin-top: -25px;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #5D78FF;
+    border-color: #5D78FF;
+}

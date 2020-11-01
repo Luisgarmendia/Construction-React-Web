@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 .header {
+    font-family: 'Poppins', sans-serif;
     /*background: blueviolet no-repeat center;*/
     background: #141E30;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
@@ -10,4 +12,5 @@
     background-color: transparent !important;
     align-items: center;
 }
+
 

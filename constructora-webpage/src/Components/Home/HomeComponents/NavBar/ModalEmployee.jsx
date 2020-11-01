@@ -5,7 +5,7 @@ import './Styles/Modal.css'
 import { useForm } from 'react-hook-form';
 import Button from '../../../Reusables/Button';
 
-const ModalUser = (props) => {
+const ModalEmployee = (props) => {
     const{register, errors, handleSubmit} = useForm();
     const [Open, setOpen] = React.useState()
 
@@ -23,85 +23,96 @@ const ModalUser = (props) => {
                 <div className="container modal-container">
                     <div className="row justify-content-center">
                         <button onClick={close} className="btn-alert"> Back </button>
-                    <h2 className="text-uppercase m-auto">add User</h2>
+                    <h2 className="text-uppercase m-auto">add Employee</h2>
                     </div>
                     <hr className="my-2"/>
                     <div className="row">
-                        <div className="col-sm-6">
-                            <h5>First name *</h5>
+                    <div className="col-sm-4">
+                            <h5>Nick name *</h5>
                             <Input 
                                 type="text"
-                                placeholder="First name"
-                                name="fistName"
+                                placeholder="Nick name"
+                                name="nickname"
                                 constant={register}
                                 required={true}
-                                messageError={errors?.fistName?.message} />
+                                messageError={errors?.nickname?.message} />
+                        </div>
+
+                        <div className="col-sm-4">
+                            <h5>Name *</h5>
+                            <Input 
+                                type="text"
+                                placeholder="Name"
+                                name="name"
+                                constant={register}
+                                required={true}
+                                messageError={errors?.name?.message} />
+                        </div>
+
+                        <div className="col-sm-4">
+                            <h5>Addess *</h5>
+                            <Input 
+                                type="text"
+                                placeholder="Address"
+                                name="address"
+                                constant={register}
+                                required={true}
+                                messageError={errors?.address?.message} />
                         </div>
 
                         <div className="col-sm-6">
-                            <h5>Last name *</h5>
+                            <h5>City *</h5>
                             <Input 
                                 type="text"
-                                placeholder="Last name"
-                                name="lastName"
+                                placeholder="Address"
+                                name="address"
                                 constant={register}
                                 required={true}
-                                messageError={errors?.lastName?.message} />
+                                messageError={errors?.address?.message} />
                         </div>
 
                         <div className="col-sm-6">
-                            <h5>Phone number *</h5>
+                            <h5>State *</h5>
                             <Input 
                                 type="text"
-                                placeholder="Phone number"
-                                name="phoneNumber"
+                                placeholder="State"
+                                name="state"
                                 constant={register}
                                 required={true}
-                                messageError={errors?.phoneNumber?.message} />
-                        </div>
-
-                        <div className="col-sm-6">
-                            <h5>Email *</h5>
-                            <Input 
-                                type="text"
-                                placeholder="Email"
-                                name="email"
-                                constant={register}
-                                required={true}
-                                messageError={errors?.email?.message} />
+                                messageError={errors?.state?.message} />
                         </div>
 
                         <div className="col-sm-6 col-lg-4">
-                            <h5>Job position</h5>
+                            <h5>Code</h5>
                             <Input 
                                 type="text"
-                                placeholder="Job position<"
-                                name="jobposition"
+                                placeholder="Code"
+                                name="code"
                                 constant={register}
                                 required={false}
-                                messageError={errors?.jobposition?.message} />
+                                messageError={errors?.code?.message} />
                         </div>
 
                         <div className="col-sm-6 col-lg-4">
-                            <h5>Password *</h5>
+                            <h5>Status *</h5>
                             <Input 
-                                type="password"
-                                placeholder="Password"
-                                name="password"
+                                type="text"
+                                placeholder="Status"
+                                name="status"
                                 constant={register}
                                 required={true}
-                                messageError={errors?.password?.message} />
+                                messageError={errors?.status?.message} />
                         </div>
 
                         <div className="col-sm-6 col-lg-4">
-                            <h5>Re password *</h5>
+                            <h5>Start Date *</h5>
                             <Input 
-                                type="password"
-                                placeholder="Re password"
-                                name="repassword"
+                                type="text"
+                                placeholder="Start Date"
+                                name="date"
                                 constant={register}
                                 required={true}
-                                messageError={errors?.repassword?.message} />
+                                messageError={errors?.date?.message} />
                         </div>
                     </div>
 
@@ -117,4 +128,4 @@ const ModalUser = (props) => {
     )
 }
 
-export default ModalUser;
+export default ModalEmployee;
