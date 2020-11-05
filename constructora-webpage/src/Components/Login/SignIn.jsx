@@ -5,19 +5,22 @@ import { signIn } from '../../Redux/LoginDucks';
 import './Styles/SignIn.css'
 import {
     Link,
+    withRouter
   } from "react-router-dom";
 import Input from '../Reusables/Input';
 import Button from '../Reusables/Button';
+import {verifyLogin} from '../../Redux/Actions/IsLogin'
 
-const SignIn = () => {
+const SignIn = (props) => {
+    const { history } = props;
     const dispatch = useDispatch();
 
     const {register, errors, handleSubmit} = useForm();
     const onSubmit = (data) => {
-        console.log(data)
-        //dispatch(signIn(data.email, data.password))
+        dispatch(signIn(data.email, data.password, history))
     }
-
+    
+    React.useEffect(()=> (dispatch(verifyLogin(history))))
     return(
     <Fragment>
         <div className="d-flex justify-content-center align-item-center login-container">
@@ -52,11 +55,9 @@ const SignIn = () => {
                 </div>
                 <Link to="/">forgot password?</Link>
             </div>
-            <Link to="/Home">
-                            <Button
-                            type="submit"
-                            text="Log in" />
-                        </Link> 
+                <Button
+                    type="submit"
+                    text="Log in" />
             <p className="mt-3 font-weight-normal">Don't have an account? <Link  to="/SignUp"><strong>Register Now!</strong></Link></p>
 
         </form>
@@ -66,4 +67,4 @@ const SignIn = () => {
     );
 }
 
-export default SignIn;
+export default withRouter(SignIn);

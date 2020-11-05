@@ -36,16 +36,19 @@ const AddButton = (props) => {
 			<h4>Add +</h4>
 			
 			<div className="row mt-3">
-				<div className="col">
+				<div className="col-sm-6 col-lg-3 col-xs-12 mb-2">
 					<button onClick={openModal('project')} className="col btn btn-dark-moon btn-rounded">New project</button>
 				</div>
 
-				<div className="col">
+				<div className="col-sm-6 col-lg-3 col-xs-12 mb-2">
 					<button onClick={openModal('user')} className="col btn btn-dark-moon btn-rounded">New user</button>
 				</div>
 
-				<div className="col">
+				<div className="col-sm-6 col-lg-3 col-xs-12 mb-2">
 					<button onClick={openModal('employee')} className="col btn btn-dark-moon btn-rounded">New employee</button>
+				</div>
+				<div className="col-sm-6 col-lg-3 col-xs-12 mb-2">
+					<button onClick={openModal('employee')} className="col btn btn-dark-moon btn-rounded">New customer</button>
 				</div>
 			</div>
     <hr className="my-4" />

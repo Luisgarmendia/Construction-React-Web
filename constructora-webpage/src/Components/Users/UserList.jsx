@@ -1,7 +1,14 @@
-import React from 'react';
-import { MDBDataTableV5 } from 'mdbreact';
+import React, { useEffect } from 'react';
+import { MDBDataTableV5, MDBNavLink } from 'mdbreact';
+import { getEmployees } from '../../Redux/EmployeesDucks'
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function WithCheckBoxesEnd() {
+  const employees = useSelector(state => state.employees)
+  const dispatch = useDispatch()
+
+  //useEffect(() => dispatch(getEmployees()));
+
   const [datatable, setDatatable] = React.useState({
     columns: [
         {
@@ -51,89 +58,7 @@ export default function WithCheckBoxesEnd() {
         width: 100,
       },
     ],
-    rows: [
-      {
-        name: 'Tiger Nixon',
-        labor: 'System Architect',
-        nickname: 'Edinburgh',
-        project: '61',
-        salary: '$320',
-        movil: '+504 4332-4332',
-        email: 'bnit@kmlo.com'
-      },
-      {
-        name: 'Michael Bruce',
-        labor: 'Javascript Developer',
-        nickname: 'Singapore',
-        project: '2011/06/27',
-        salary: '$183',
-        movil: '+504 4332-4332',
-        email: 'bnit@kmlo.com'
-      },
-      {
-        name: 'Donna Snider',
-        labor: 'Customer Support',
-        nickname: 'New York',
-        project: '2011/01/25',
-        salary: '$112',
-        movil: '+504 4332-4332',
-        email: 'bnit@kmlo.com'
-      },
-      {
-        name: 'Tiger Nixon',
-        labor: 'System Architect',
-        nickname: 'Edinburgh',
-        project: '61',
-        salary: '$320',
-        movil: '+504 4332-4332',
-        email: 'bnit@kmlo.com'
-      },
-      {
-        name: 'Michael Bruce',
-        labor: 'Javascript Developer',
-        nickname: 'Singapore',
-        project: '2011/06/27',
-        salary: '$183',
-        movil: '+504 4332-4332',
-        email: 'bnit@kmlo.com'
-      },
-      {
-        name: 'Donna Snider',
-        labor: 'Customer Support',
-        nickname: 'New York',
-        project: '2011/01/25',
-        salary: '$112',
-        movil: '+504 4332-4332',
-        email: 'bnit@kmlo.com'
-      },
-      {
-        name: 'Tiger Nixon',
-        labor: 'System Architect',
-        nickname: 'Edinburgh',
-        project: '61',
-        salary: '$320',
-        movil: '+504 4332-4332',
-        email: 'bnit@kmlo.com'
-      },
-      {
-        name: 'Michael Bruce',
-        labor: 'Javascript Developer',
-        nickname: 'Singapore',
-        project: '2011/06/27',
-        salary: '$183',
-        movil: '+504 4332-4332',
-        email: 'bnit@kmlo.com'
-      },
-      {
-        name: 'Donna Snider',
-        labor: 'Customer Support',
-        nickname: 'New York',
-        project: '2011/01/25',
-        salary: '$112',
-        movil: '+504 4332-4332',
-        email: 'bnit@kmlo.com'
-      },
-    ],
+    rows: employees.array
   });
   const [checkbox1, setCheckbox1] = React.useState('');
 
@@ -143,20 +68,22 @@ export default function WithCheckBoxesEnd() {
 
   return (
     <div className="mx-3">
-      <MDBDataTableV5
-        hover
-        entriesOptions={[5, 20, 25]}
-        entries={5}
-        pagesAmount={4}
-        data={datatable}
-        checkbox
-        headCheckboxID='id4'
-        bodyCheckboxID='checkboxes4'
-        getValueCheckBox={(e) => {
-          showLogs2(e);
-        }}
-        checkboxFirstColumn
-      />
+      <button onClick= {() => (dispatch(getEmployees()))} >presioname perro</button>
+      
+            <MDBDataTableV5
+              hover
+              entriesOptions={[5, 20, 25]}
+              entries={5}
+              pagesAmount={4}
+              data={datatable}
+              checkbox
+              headCheckboxID='id4'
+              bodyCheckboxID='checkboxes4'
+              getValueCheckBox={(e) => {
+                showLogs2(e);
+              }}
+              checkboxFirstColumn
+            />
 
       <div className="container primary"> {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1)}</p>}</div>
     </div>

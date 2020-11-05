@@ -2,19 +2,22 @@ import React,{Fragment} from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../Reusables/Input';
 import Button from '../Reusables/Button'
-import {Link} from 'react-router-dom';
+import { Link,  Redirect} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-//import { signUp } from '../../Redux/LoginDucks';
+import { signUp } from '../../Redux/LoginDucks';
 import './Styles/SignUp.css'
-const SignUp = () => {
+const SignUp = ( props ) => {
+    const history = props
     const [next, setNext] = React.useState(false)
-   // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const{register, errors, handleSubmit} = useForm();
 
+        ////por aqui voy amor
     const onSubmit = (data) => {
-        console.log( `antes: ${next}`)
+       /*  console.log( `antes: ${next}`)
         setNext(true)
-        console.log( `despues: ${next}`)
+         */console.log( `data: ${data.firstName}`)
+        dispatch(signUp(data, history))
     }
 
     return(
@@ -50,23 +53,28 @@ const SignUp = () => {
 
                             </div>
 
-                            <div className="container">
-                                
-                                <Input
-                                type="text"
-                                placeholder="Phone"
-                                name="phone"
-                                constant={register}
-                                required={true}
-                                messageError={errors?.phone?.message}/>                        
-                            
-                                <Input
-                                type="text"
-                                placeholder="Address"
-                                name="address"
-                                constant={register}
-                                required={true}
-                                messageError={errors?.lastName?.message}/>
+                            <div className="row">
+                                    <div className="col-sm-6">
+                                            <Input
+                                            type="text"
+                                            placeholder="Phone"
+                                            name="phone"
+                                            constant={register}
+                                            required={true}
+                                            messageError={errors?.phone?.message}/>   
+                                    </div>                     
+
+                                    <div className="col-sm-6">
+                                        <Input
+                                        type="text"
+                                        placeholder="Job Position"
+                                        name="jobPosition"
+                                        constant={register}
+                                        required={true}
+                                        messageError={errors?.jobPosition?.message}/>
+                                    </div>
+
+                                </div>
 
                                 <Input
                                 type="text"
@@ -75,6 +83,7 @@ const SignUp = () => {
                                 constant={register}
                                 required={true}
                                 messageError={errors?.email?.message}/>
+
                             </div>
 
                             <div className="container">
@@ -101,14 +110,9 @@ const SignUp = () => {
                                 </div>
                             </div>
                             
-
-                        </div>
-
-                        <Link to="/Home">
                             <Button
                             type="submit"
                             text="Sign Up" />
-                        </Link> 
 
                         <p className="mt-3 font-weight-normal">Have an account? <Link  to="/SignIn"><strong>Signin Now!</strong></Link></p>
                     </form>                    
@@ -119,4 +123,4 @@ const SignUp = () => {
     );
 }
 
-export default SignUp;
+export default Redirect(SignUp);

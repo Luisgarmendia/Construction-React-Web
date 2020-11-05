@@ -16,9 +16,9 @@ function App(){
         <Provider store = {store}>
             <Router>
                 <Switch>
-                    <Route path="/SignIn" exact component={SignIn} />
+                    <Route path="/" exact component={SignIn} />
                     <Route path="/SignUp" exact component={SignUp} />
-                    <Route path="/" exact component={Home} />
+                    <Route path="/Home/" exact component={Home} />
                 </Switch>
             </Router>
         </Provider>
