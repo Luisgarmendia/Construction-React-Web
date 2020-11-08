@@ -1,44 +1,28 @@
 import React from 'react';
 import Modal from 'react-modal';
-import Input from '../../../Reusables/Input'
+import Input from '../../Reusables/Input'
 import './Styles/Modal.css'
 import { useForm } from 'react-hook-form';
-import Button from '../../../Reusables/Button';
+import Button from '../../Reusables/Button';
+import { changeStatus } from '../../../Redux/Actions/Modals';
+import { useDispatch, useSelector } from 'react-redux';
 
-const ModalEmployee = (props) => {
+const ModalProject = (props) => {
     const{register, errors, handleSubmit} = useForm();
-    const [Open, setOpen] = React.useState()
-
-    React.useEffect(() => {
-        setOpen(props.isOpen);
-    }, [props.isOpen])
-
-    const close = () => {
-        setOpen(false)
-    }
+    const isOpen = useSelector(store => store.modalStatus);
+    const dispatch = useDispatch();
 
     return(
             <Modal 
-            isOpen={Open}>
+            isOpen={isOpen.projectOpen}>
                 <div className="container modal-container">
                     <div className="row justify-content-center">
-                        <button onClick={close} className="btn-alert"> Back </button>
-                    <h2 className="text-uppercase m-auto">add Employee</h2>
+                        <button onClick={()=> dispatch(changeStatus('project', false))} className="btn-alert"> Back </button>
+                    <h2 className="text-uppercase m-auto">add Project</h2>
                     </div>
                     <hr className="my-2"/>
                     <div className="row">
-                    <div className="col-sm-4">
-                            <h5>Nick name *</h5>
-                            <Input 
-                                type="text"
-                                placeholder="Nick name"
-                                name="nickname"
-                                constant={register}
-                                required={true}
-                                messageError={errors?.nickname?.message} />
-                        </div>
-
-                        <div className="col-sm-4">
+                        <div className="col-sm-6">
                             <h5>Name *</h5>
                             <Input 
                                 type="text"
@@ -49,7 +33,7 @@ const ModalEmployee = (props) => {
                                 messageError={errors?.name?.message} />
                         </div>
 
-                        <div className="col-sm-4">
+                        <div className="col-sm-6">
                             <h5>Addess *</h5>
                             <Input 
                                 type="text"
@@ -128,4 +112,4 @@ const ModalEmployee = (props) => {
     )
 }
 
-export default ModalEmployee;
+export default ModalProject;

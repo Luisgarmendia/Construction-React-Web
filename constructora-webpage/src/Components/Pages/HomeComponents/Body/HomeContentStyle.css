@@ -1,0 +1,4 @@
+.container .row .card:hover{
+    margin: -3px;
+    transition: margin .2s ease; 
+}

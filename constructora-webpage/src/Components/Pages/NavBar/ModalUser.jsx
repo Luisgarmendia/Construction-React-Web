@@ -1,28 +1,23 @@
 import React from 'react';
 import Modal from 'react-modal';
-import Input from '../../../Reusables/Input'
+import Input from '../../Reusables/Input'
 import './Styles/Modal.css'
 import { useForm } from 'react-hook-form';
-import Button from '../../../Reusables/Button';
+import Button from '../../Reusables/Button';
+import { changeStatus } from '../../../Redux/Actions/Modals';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ModalUser = (props) => {
     const{register, errors, handleSubmit} = useForm();
-    const [Open, setOpen] = React.useState()
-
-    React.useEffect(() => {
-        setOpen(props.isOpen);
-    }, [props.isOpen])
-
-    const close = () => {
-        setOpen(false)
-    }
+    const isOPen = useSelector(store => store.modalStatus)
+    const dispatch = useDispatch();
 
     return(
             <Modal 
-            isOpen={Open}>
+            isOpen={isOPen.userOPen}>
                 <div className="container modal-container">
                     <div className="row justify-content-center">
-                        <button onClick={close} className="btn-alert"> Back </button>
+                        <button onClick={()=> dispatch(changeStatus('user', false))} className="btn-alert"> Back </button>
                     <h2 className="text-uppercase m-auto">add User</h2>
                     </div>
                     <hr className="my-2"/>

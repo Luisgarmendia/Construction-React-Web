@@ -1,11 +1,23 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import './HomeContentStyle.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { getClientList } from '../../../../Redux/Actions/Client';
+import {Link } from 'react-router-dom'
+import CustomerList from  '../../CustomerPages/CustomerListModal';
+import { changeStatus } from '../../../../Redux/Actions/Collapse'
 
 const HomeConten = () => {
+    const clients = useSelector(state => state.clients)
+    const dispatch = useDispatch();
+
+    const changeState = (window, valor) => {
+        dispatch(changeStatus(window, valor));
+    }
     return(
-    <div className="container"> 
+        <div className="container"> 
         <div className="text-left text-uppercase text-bold-700 mb-3">
             <h2>Projects</h2>
+            <button onClick={() => dispatch(getClientList())}>jalar data</button>
         </div>
         <div className="row">
             <div className="col-xl-3 col-sm-6 col-12">
@@ -62,11 +74,12 @@ const HomeConten = () => {
             </div>
             <div className="col-xl-3 col-sm-6 col-12">
                 <div className="card">
+                <a href="#" onClick = { () => dispatch(getClientList()) } className="stretched-link" >
                 <div className="card-content">
                     <div className="card-body">
                     <div className="media d-flex">
                         <div className="media-body text-left">
-                        <h3 className="primary">423</h3>
+                        <h3 className="primary">{clients.clientList.length}</h3>
                         <span>Customers</span>
                         </div>
                         <div className="align-self-center">
@@ -75,10 +88,12 @@ const HomeConten = () => {
                     </div>
                     </div>
                 </div>
+                    </a>
                 </div>
             </div>
         </div>
         
+        <CustomerList />
         <hr  />
 
         <div className="text-left text-uppercase text-bold-700 my-3">
@@ -92,7 +107,7 @@ const HomeConten = () => {
                         <div className="card-body">
                             <div className="media d-flex">
                                 <div className="media-body text-left">
-                                    <h3 className="teal">43421</h3>
+                                    <h3 className="teal">223</h3>
                                     <span>Actives</span>
                                 </div>
                                 <div className="align-self-center">

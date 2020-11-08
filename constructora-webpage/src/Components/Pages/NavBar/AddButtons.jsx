@@ -3,33 +3,21 @@ import './Styles/AddButtons.css'
 import Modal from './ModalProject'
 import ModalUser from './ModalUser'
 import ModalEmployee from './ModalEmployee'
+import CustomerModal from './ModalCustomer';
+import { changeStatus } from '../../../Redux/Actions/Modals';
+import { useDispatch } from 'react-redux';
 
+const AddButton = () => {
+	const dispatch = useDispatch();
 
-const AddButton = (props) => {
-	const [open, setOpen] = React.useState(false);
-	const [openUser, setOpenUser] = React.useState(false);
-	const [openEmployee, setOpenEmployee] = React.useState(false);
-
-    const openModal = (a) =>  () => {
-		switch(a){
-			case 'project':
-				setOpen(true);
-			break;
-			case 'user':
-				setOpenUser(true);
-			break;
-			case 'employee':
-				setOpenEmployee(true);
-			break
-			default:
-		}
-    }
-	
+    const openModal = (a) =>  () => dispatch(changeStatus(a, true))
+		
     return(
         <div className="container add-button">
-			<Modal isOpen = {open}  modal = "project" />
-			<ModalUser isOpen = {openUser} />
-			<ModalEmployee isOpen = {openEmployee} />
+			<Modal />
+			<ModalUser />
+			<ModalEmployee />
+			<CustomerModal />
 		
 			<h1 className="text-center">Tecno Contruction Plus</h1>
 			
@@ -48,7 +36,7 @@ const AddButton = (props) => {
 					<button onClick={openModal('employee')} className="col btn btn-dark-moon btn-rounded">New employee</button>
 				</div>
 				<div className="col-sm-6 col-lg-3 col-xs-12 mb-2">
-					<button onClick={openModal('employee')} className="col btn btn-dark-moon btn-rounded">New customer</button>
+					<button onClick={openModal('customer')} className="col btn btn-dark-moon btn-rounded">New customer</button>
 				</div>
 			</div>
     <hr className="my-4" />

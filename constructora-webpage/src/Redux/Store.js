@@ -3,12 +3,17 @@ import thunk from 'redux-thunk';
 import login from './LoginDucks';
 import employees from './EmployeesDucks';
 import isLogin from './Actions/IsLogin';
+import isOPen from './Actions/Modals';
+import customer from './Actions/Client'
+import collapseStatus from './Actions/Collapse';
 
 const rootReducer = combineReducers({
     login: login,
     employees: employees,
-    token: isLogin
-
+    clients: customer,
+    token: isLogin,
+    modalStatus: isOPen,
+    collapseStatus: collapseStatus
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

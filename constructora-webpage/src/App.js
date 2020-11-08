@@ -1,9 +1,10 @@
 import React from 'react';
+import dotenv from 'dotenv'
 import SignIn from './Components/Login/SignIn';
 import {Provider} from 'react-redux';
 import generateStore from './Redux/Store'
 import SignUp from './Components/Login/SignUp';
-import Home from './Components/Home/HomePage';
+import Home from './Components/Pages/HomePage';
 import {
     BrowserRouter as Router,
     Switch,
@@ -12,6 +13,7 @@ import {
 
 function App(){
     const store = generateStore();
+    const env = dotenv.config().parsed;
     return(
         <Provider store = {store}>
             <Router>
