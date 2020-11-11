@@ -24,6 +24,7 @@ export default function collapseStatus(state = collapse, action){
 ///Actions
 
 export const changeStatus = (window, status) => (dispatch, getState) => {
+    console.log(status)
     switch(window){
         case 'customer':
             dispatch({

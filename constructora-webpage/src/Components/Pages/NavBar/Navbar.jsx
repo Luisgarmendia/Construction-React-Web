@@ -20,7 +20,8 @@ const NavBar = () => {
                 </div>
             </nav>
 
-            <AddButton />
+            <h1 className="text-center">Tecno Contruction Plus</h1>
+            <hr className="my-2" />
         </header>
     );
 }

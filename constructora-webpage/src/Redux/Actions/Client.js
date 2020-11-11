@@ -62,6 +62,7 @@ export const getClientList = () => (dispatch, getState) => {
                 type: GET_CLIENT_LIST,
                 payload: res.data.data
             })
+
             return resolve(res.data.data);
         })
         .catch((err) => {
