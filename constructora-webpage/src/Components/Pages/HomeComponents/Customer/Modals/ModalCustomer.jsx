@@ -1,12 +1,12 @@
 import React from 'react';
 import Modal from 'react-modal';
-import Input from '../../Reusables/Input'
+import Input from '../../../../Reusables/Input'
 import './Styles/Modal.css'
 import { useForm } from 'react-hook-form';
-import Button from '../../Reusables/Button';
+import Button from '../../../../Reusables/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { setClient } from '../../../Redux/Actions/Client'
-import { changeStatus } from '../../../Redux/Actions/Modals'
+import { setClient } from '../../../../../Redux/Actions/Client'
+import { changeStatus } from '../../../../../Redux/Actions/Modals'
 
 const CustomerForm = (props) => {
     
@@ -17,7 +17,7 @@ const CustomerForm = (props) => {
     const onSubmit = (data) => {
         dispatch(setClient(data))
     }
-    
+
     return(
         <Modal  
         isOpen={isOPen.customerOpen}>

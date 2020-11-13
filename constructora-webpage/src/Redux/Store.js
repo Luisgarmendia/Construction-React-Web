@@ -6,9 +6,11 @@ import isLogin from './Actions/IsLogin';
 import isOPen from './Actions/Modals';
 import customer from './Actions/Client'
 import collapseStatus from './Actions/Collapse';
+import projectsReducer from'./Actions/Projects'
 
 const rootReducer = combineReducers({
     login: login,
+    projects: projectsReducer,
     employees: employees,
     clients: customer,
     token: isLogin,

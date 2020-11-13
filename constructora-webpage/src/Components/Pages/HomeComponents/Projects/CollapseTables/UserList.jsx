@@ -1,9 +1,4 @@
-import React, { useState  } from 'react';
-import { Collapse } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import DataTableExtensions from 'react-data-table-component-extensions';
-import 'react-data-table-component-extensions/dist/index.css';
-import Datatable from 'react-data-table-component';
+import React, { useState } from "react";
 import { ListItemIcon, ListItemText, IconButton } from "@material-ui/core";
 import MuiDataTable from "mui-datatables";
 import EditIcon from "@material-ui/icons/Edit";
@@ -15,10 +10,43 @@ import CheckIcon from "@material-ui/icons/Check";
 import MenuIcon from "@material-ui/icons/Menu";
 import { StyledMenu, StyledMenuItem } from "./StyledMenu";
 
-const CustomerList = (props) => {
-  const isOpen = useSelector(store => store.collapseStatus);
-  let customerList = useSelector(store => store.clients.clientList);
-  
+const data = [
+  {
+    idProfile: 1,
+    username: "Admin",
+    password: null,
+    state: true,
+    fullName: "Admin",
+    email: "admin@admin.com",
+    phone: "",
+    idRole: 1,
+    role: "Administrador"
+  },
+  {
+    idProfile: 2,
+    username: "Pepe",
+    password: null,
+    state: false,
+    fullName: "El Pepe",
+    email: "elpepe@pepe.com",
+    phone: "+569",
+    idRole: 1,
+    role: "Administrador"
+  },
+  {
+    idProfile: 3,
+    username: "Sech",
+    password: null,
+    state: true,
+    fullName: "Etesech",
+    email: "etesech@sech.com",
+    phone: "+569",
+    idRole: 1,
+    role: "Administrador"
+  }
+];
+
+export default function UserList() {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClickMenu = (e) => {
@@ -28,28 +56,44 @@ const CustomerList = (props) => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-  
-  const columns = [
 
+  const columns = [
     {
-      label: 'Name',
-      name: 'name',
-      sortable: true
+      name: "idProfile",
+      options: {
+        display: false,
+        viewColumns: false,
+        filter: false
+      }
     },
     {
-      label: 'Contact Name',
-      name: 'contactName',
-      sortable: true
+      name: "fullName",
+      label: "Nombre"
     },
     {
-      label: 'Contact Phone',
-      name: 'contactPhone',
-      sortable: true
+      name: "username",
+      label: "Nombre de usuario"
     },
     {
-      label: 'Email',
-      name: 'email',
-      sortable: true
+      name: "email",
+      label: "Correo"
+    },
+    {
+      name: "phone",
+      label: "Telefono"
+    },
+    {
+      name: "state",
+      label: "Estado",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return tableMeta.rowData[5] ? "Habilitado" : "Deshabilitado";
+        }
+      }
+    },
+    {
+      name: "role",
+      label: "Tipo de usuario"
     },
     {
       name: "actions",
@@ -78,7 +122,7 @@ const CustomerList = (props) => {
                 <StyledMenuItem
                   onClick={() => {
                     handleCloseMenu();
-                    alert(`Editar cuenta de ${tableMeta.rowData[1]}`);
+                    alert(`Editar cuenta de ${tableMeta.rowData[value]}`);
                   }}
                 >
                   <ListItemIcon>
@@ -141,22 +185,9 @@ const CustomerList = (props) => {
       }
     }
   ];
-
-  const dataTable = {
-    columns,
-    customerList
-  }
-
-
-  
   return (
-      <Collapse in={isOpen.customerOpen}>
-
-    <div className="mx-2 table-responsive">
-    <MuiDataTable striped={true} data={customerList} columns={columns} />
-      </div>
-      </Collapse>
+    <div className="App">
+      <MuiDataTable striped={true} data={data} columns={columns} />
+    </div>
   );
 }
-
-export default CustomerList;

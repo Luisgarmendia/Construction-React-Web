@@ -1,6 +1,5 @@
 import React from 'react';
 import './Styles/NavBar.css'
-import AddButton from './AddButtons';
 import {
     Link
 } from "react-router-dom";
@@ -20,7 +19,7 @@ const NavBar = () => {
                 </div>
             </nav>
 
-            <h1 className="text-center">Tecno Contruction Plus</h1>
+            <h1 className="text-center text-uppercase">Techno Construction Plus</h1>
             <hr className="my-2" />
         </header>
     );

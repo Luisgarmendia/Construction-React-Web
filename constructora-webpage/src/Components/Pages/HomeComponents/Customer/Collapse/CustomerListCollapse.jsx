@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState  } from 'react';
+import { Collapse } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux'; 
+import 'react-data-table-component-extensions/dist/index.css';
 import { ListItemIcon, ListItemText, IconButton } from "@material-ui/core";
 import MuiDataTable from "mui-datatables";
 import EditIcon from "@material-ui/icons/Edit";
@@ -8,46 +11,17 @@ import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import BlockIcon from "@material-ui/icons/Block";
 import CheckIcon from "@material-ui/icons/Check";
 import MenuIcon from "@material-ui/icons/Menu";
-import { StyledMenu, StyledMenuItem } from "./StyledMenu";
+import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
+import { StyledMenu, StyledMenuItem } from "../../Projects/CollapseTables/StyledMenu";
+import { changeStatus } from '../../../../../Redux/Actions/Modals';
+import AddEmployeeModal from '../../Employees/ModalEmployees/AddEmployee';
 
-const data = [
-  {
-    idProfile: 1,
-    username: "Admin",
-    password: null,
-    state: true,
-    fullName: "Admin",
-    email: "admin@admin.com",
-    phone: "",
-    idRole: 1,
-    role: "Administrador"
-  },
-  {
-    idProfile: 2,
-    username: "Pepe",
-    password: null,
-    state: false,
-    fullName: "El Pepe",
-    email: "elpepe@pepe.com",
-    phone: "+569",
-    idRole: 1,
-    role: "Administrador"
-  },
-  {
-    idProfile: 3,
-    username: "Sech",
-    password: null,
-    state: true,
-    fullName: "Etesech",
-    email: "etesech@sech.com",
-    phone: "+569",
-    idRole: 1,
-    role: "Administrador"
-  }
-];
-
-export default function UserList() {
+const CustomerList = (props) => {
+  const isOpen = useSelector(store => store.collapseStatus);
+  let customerList = useSelector(store => store.clients.clientList);
   const [anchorEl, setAnchorEl] = useState(null);
+  const modalOpen = useSelector(store => store.modalStatus.employeeOpen);
+  const dispatch = useDispatch();
 
   const handleClickMenu = (e) => {
     setAnchorEl(e.currentTarget);
@@ -56,44 +30,28 @@ export default function UserList() {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-
+  
   const columns = [
+
     {
-      name: "idProfile",
-      options: {
-        display: false,
-        viewColumns: false,
-        filter: false
-      }
+      label: 'Name',
+      name: 'name',
+      sortable: true
     },
     {
-      name: "fullName",
-      label: "Nombre"
+      label: 'Contact Name',
+      name: 'contactName',
+      sortable: true
     },
     {
-      name: "username",
-      label: "Nombre de usuario"
+      label: 'Contact Phone',
+      name: 'contactPhone',
+      sortable: true
     },
     {
-      name: "email",
-      label: "Correo"
-    },
-    {
-      name: "phone",
-      label: "Telefono"
-    },
-    {
-      name: "state",
-      label: "Estado",
-      options: {
-        customBodyRender: (value, tableMeta, updateValue) => {
-          return tableMeta.rowData[5] ? "Habilitado" : "Deshabilitado";
-        }
-      }
-    },
-    {
-      name: "role",
-      label: "Tipo de usuario"
+      label: 'Email',
+      name: 'email',
+      sortable: true
     },
     {
       name: "actions",
@@ -122,7 +80,7 @@ export default function UserList() {
                 <StyledMenuItem
                   onClick={() => {
                     handleCloseMenu();
-                    alert(`Editar cuenta de ${tableMeta.rowData[1]}`);
+                    alert(`Editar cuenta de ${tableMeta.rowData[tableMeta.rowData + 1]}`);
                   }}
                 >
                   <ListItemIcon>
@@ -184,10 +142,21 @@ export default function UserList() {
         }
       }
     }
-  ];
+  ];  
+  
+  const title = <div className="row border-darken-4 ">
+    <h3 className="blue-grey">Customers</h3>
+    <a href={()=> false} onClick={()=> dispatch(changeStatus('employee', true))} className="success ml-auto "> Add <PersonAddRoundedIcon /></a>
+      </div>
   return (
-    <div className="App">
-      <MuiDataTable striped={true} data={data} columns={columns} />
-    </div>
+      <Collapse in={isOpen.customerOpen}>
+    
+    <div className=" table-responsive">
+      <AddEmployeeModal />
+      <MuiDataTable title = {title} striped data={customerList} columns={columns} />
+      </div>
+      </Collapse>
   );
 }
+
+export default CustomerList;

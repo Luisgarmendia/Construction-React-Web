@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import {useForm} from 'react-hook-form';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch } from 'react-redux';
 import { signIn } from '../../Redux/LoginDucks';
 import './Styles/SignIn.css'
 import {
@@ -28,7 +28,7 @@ const SignIn = (props) => {
                 <h1 className="mb-5 font-weight-light text-uppercase">SignIn</h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="form-group">
-
+                <div className="col-xl-4 col-lg-6 col-sm-12"></div>
             <Input 
                 type="text"
                 placeholder="Email"
@@ -38,7 +38,8 @@ const SignIn = (props) => {
                 requiredMessage="Email is required"
                 messageError={errors?.email?.message} />
 
-            <Input
+
+                <Input
                 className="form-control mb-9" 
                 type="password" 
                 placeholder="Password" 

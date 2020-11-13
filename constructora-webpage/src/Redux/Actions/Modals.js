@@ -5,6 +5,7 @@ const data = {
     employeeOpen : false,
     projectOpen : false,
     userOPen : false,
+    setProjectModal : false,
 }
 
 //Types

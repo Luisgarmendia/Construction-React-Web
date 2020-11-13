@@ -37,7 +37,6 @@ export const setClient = (data) => (dispatch, getState) => {
             registrantEmployee: '5f988684a6c28d8805c8c37e'
         })
         .then((res) => {
-            console.log(res.data)
             dispatch({
                 type: SET_CLIENT,
                 payload: res.data.client
