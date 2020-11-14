@@ -13,7 +13,7 @@ import {
 
 function App(){
     const store = generateStore();
-    const env = dotenv.config().parsed;
+     dotenv.config();
     return(
         <Provider store = {store}>
             <Router>

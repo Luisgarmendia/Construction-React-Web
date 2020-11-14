@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //constants
-const PORT ="http://localhost:3001"
+const PORT = process.env.REACT_APP_API_URL;
 const data = {
     client: [],
     clientList: []

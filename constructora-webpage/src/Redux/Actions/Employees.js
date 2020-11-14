@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 ////Constants
-const PORT = "http://localhost:3001";
+const PORT = process.env.REACT_APP_API_URL;
 const employees = {
     actives: [],
     inactives: []

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 //constants
+const PORT = process.env.REACT_APP_API_URL;
 const data ={ 
     array: []
 }
@@ -22,7 +23,6 @@ export default function employees(state = data, action){
 //Actions
 
 export const getEmployees = () => (dispatch, getState) =>{
-    console.log('dsadsadsada holis')
     return new Promise((resolve, reject) => {
         axios.get('https://jsonplaceholder.typicode.com/users')
             .then((res) => {

@@ -1,6 +1,7 @@
 import axios from 'axios';
 //constantes
 
+const PORT = process.env.REACT_APP_API_URL;
 const data = {
     user : []
 }
@@ -28,7 +29,7 @@ export default function login(state = data, action){
 export const signIn = (email, password, history) => async (dispatch, getState) => {
     return new Promise((resolve, reject) => {
         
-        axios.post('http://localhost:3001/signIn/Email',
+        axios.post(PORT + '/signIn/Email',
                     {
                         email: email,
                         password: password
@@ -54,7 +55,7 @@ export const signIn = (email, password, history) => async (dispatch, getState) =
 
 export const signUp = (data, history) => (dispatch, getState) => {
     return new Promise((resolve, reject) =>{
-        axios.post('http://localhost:3001/signUp',
+        axios.post(PORT + '/signUp',
         {
             firstName: data.firstName,
             lastName: data.lastName,
