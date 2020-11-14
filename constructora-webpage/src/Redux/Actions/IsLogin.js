@@ -26,7 +26,6 @@ export default function isLogin(state = data, action){
 export const verifyLogin  = (history) => async(dispatch, getState) => {
     return new Promise((resolve, reject) => {
         var token = localStorage.getItem('Token')
-        console.log(`Token: ${token}`)
         if(token != null){
             dispatch({
                 type: IS_LOGIN,

@@ -9,6 +9,7 @@ import { withRouter } from 'react-router-dom';
 import ActiveProject from '../Projects/CollapseTables/ActiveProject';
 import PausedProject from '../Projects/CollapseTables/PausedProject';
 import FinishedProject from '../Projects/CollapseTables/FinishedProject';
+import ActiveEmployees from '../Employees/Collapse/ActiveEmployees';
 
 const HomeConten = (props) => {
     const clients = useSelector(state => state.clients);
@@ -119,7 +120,8 @@ const HomeConten = (props) => {
         <div className="row">
 
             <div className="col-xl-3 col-sm-6 col-12">
-                <div className="card">
+                <div className="card"onClick = { () => dispatch(changeStatus('activeEmployee', !collapseStatus.ActiveEmployeeOpen)) }>
+                    <a href={() => false}>
                     <div className="card-content">
                         <div className="card-body">
                             <div className="media d-flex">
@@ -133,6 +135,7 @@ const HomeConten = (props) => {
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
             </div>
 
@@ -154,6 +157,7 @@ const HomeConten = (props) => {
                 </div>
             </div>
         </div>
+            <ActiveEmployees />
     </div>
     )
 }

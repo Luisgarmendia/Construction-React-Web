@@ -1,17 +1,16 @@
 import React from 'react';
-import Modal from 'react-modal';
-import Input from '../../../../Reusables/Input'
-import './Styles/Modal.css'
+import { Modal} from 'react-bootstrap';
+import Input from '../../../../Reusables/Input';
 import { useForm } from 'react-hook-form';
 import Button from '../../../../Reusables/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { setClient } from '../../../../../Redux/Actions/Client'
-import { changeStatus } from '../../../../../Redux/Actions/Modals'
+import { setClient } from '../../../../../Redux/Actions/Client';
+import { changeStatus } from '../../../../../Redux/Actions/Modals';
 
 const CustomerForm = (props) => {
     
     const{register, errors, handleSubmit} = useForm();
-    const isOPen = useSelector(store => store.modalStatus)
+    const isOPen = useSelector(store => store.modalStatus.customerOpen)
     const dispatch = useDispatch();
 
     const onSubmit = (data) => {
@@ -19,14 +18,19 @@ const CustomerForm = (props) => {
     }
 
     return(
-        <Modal  
-        isOpen={isOPen.customerOpen}>
+        <Modal
+            show={isOPen}
+            onHide={() => dispatch(changeStatus('customer', false))}
+            size="xl"
+            aria-labelledby="example-custom-modal-styling-title"
+            centered={true}>
+            <Modal.Header closeButton>
+            <Modal.Title id="example-custom-modal-styling-title" className="text-upper-case content-justify-center darken-4">
+                New Customer
+            </Modal.Title>
+            </Modal.Header>
+        <Modal.Body>
             <div className="container modal-container">
-                    <div className="row justify-content-center">
-                        <button onClick={() => dispatch(changeStatus('customer', false))} className="btn-alert"> Back </button>
-                    <h2 className="text-uppercase m-auto">add Customer</h2>
-                    </div>
-                    <hr className="my-2"/>
                     
                     <form onSubmit={handleSubmit(onSubmit)} className="form-group">
                     <div className="row">
@@ -87,6 +91,8 @@ const CustomerForm = (props) => {
 
                 </form>
             </div>
+
+        </Modal.Body>
         </Modal>
     )
 }

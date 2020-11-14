@@ -34,7 +34,6 @@ export const signIn = (email, password, history) => async (dispatch, getState) =
                         password: password
                     })
         .then((res) => {
-            console.log(res.data)
             localStorage.setItem('Token', res.data.token);
             dispatch({
                 type: POST_LOGIN,
@@ -55,7 +54,6 @@ export const signIn = (email, password, history) => async (dispatch, getState) =
 
 export const signUp = (data, history) => (dispatch, getState) => {
     return new Promise((resolve, reject) =>{
-        console.log(data)
         axios.post('http://localhost:3001/signUp',
         {
             firstName: data.firstName,

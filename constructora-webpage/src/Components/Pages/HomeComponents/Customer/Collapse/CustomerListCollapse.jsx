@@ -14,7 +14,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import { StyledMenu, StyledMenuItem } from "../../Projects/CollapseTables/StyledMenu";
 import { changeStatus } from '../../../../../Redux/Actions/Modals';
-import AddEmployeeModal from '../../Employees/ModalEmployees/AddEmployee';
+import CustomerForm from '../Modals/ModalCustomer';
 
 const CustomerList = (props) => {
   const isOpen = useSelector(store => store.collapseStatus);
@@ -146,14 +146,13 @@ const CustomerList = (props) => {
   
   const title = <div className="row border-darken-4 ">
     <h3 className="blue-grey">Customers</h3>
-    <a href={()=> false} onClick={()=> dispatch(changeStatus('employee', true))} className="success ml-auto "> Add <PersonAddRoundedIcon /></a>
+    <a href={()=> false} onClick={()=> dispatch(changeStatus('customer', true))} className="success ml-auto "> Add <PersonAddRoundedIcon /></a>
       </div>
   return (
       <Collapse in={isOpen.customerOpen}>
-    
     <div className=" table-responsive">
-      <AddEmployeeModal />
       <MuiDataTable title = {title} striped data={customerList} columns={columns} />
+      <CustomerForm />
       </div>
       </Collapse>
   );

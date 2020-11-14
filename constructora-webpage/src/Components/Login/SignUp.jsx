@@ -2,21 +2,17 @@ import React,{Fragment} from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../Reusables/Input';
 import Button from '../Reusables/Button'
-import { Link,  Redirect} from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Link,  Redirect, withRouter} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { signUp } from '../../Redux/LoginDucks';
 import './Styles/SignUp.css'
+
 const SignUp = ( props ) => {
-    const history = props
-    const [next, setNext] = React.useState(false)
+    const history = props.history
     const dispatch = useDispatch();
     const{register, errors, handleSubmit} = useForm();
 
-        ////por aqui voy amor
     const onSubmit = (data) => {
-       /*  console.log( `antes: ${next}`)
-        setNext(true)
-         */console.log( `data: ${data.firstName}`)
         dispatch(signUp(data, history))
     }
 
@@ -123,4 +119,4 @@ const SignUp = ( props ) => {
     );
 }
 
-export default Redirect(SignUp);
+export default withRouter(SignUp);

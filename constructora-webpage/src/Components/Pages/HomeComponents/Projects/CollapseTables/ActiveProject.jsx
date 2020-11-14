@@ -15,7 +15,7 @@ return (
         <div className="mx-2">
             <div className="container justify-content-center">
                 <div className="row">
-                    <h4>Active projects</h4>
+                    <h4 align="center">Active projects</h4>
 				<div className="col-sm-6 col-lg-3 col-xs-12 mb-2">
 					<button onClick={() => dispatch(changeStatus('project', true))} className="col btn btn-dark-moon btn-rounded">New project</button>
 				</div>

@@ -2,7 +2,7 @@
 
 const collapse = {
     customerOpen : false,
-    employeeOpen : false,
+    ActiveEmployeeOpen : false,
     activeProjectOpen : false,
     pausedProjectOpen : false,
     finishedProject : false,
@@ -13,7 +13,8 @@ const collapse = {
 const CUSTOMER_STATUS ="CUSTOMERSTATUS";
 const ACTIVEPROJECT_STATUS = "PROjectActiveStatus";
 const FINISHED_PROJECT = "finishedProject";
-const PAUSED_PROJECT ="PausedProjectColl"
+const PAUSED_PROJECT ="PausedProjectColl";
+const ACTIVE_EMPLOYEE = "activeEmployee";
 /////////Reducer
 
 export default function collapseStatus(state = collapse, action){
@@ -23,26 +24,37 @@ export default function collapseStatus(state = collapse, action){
                 customerOpen: action.payload, 
                 activeProjectOpen: false,
                 pausedProjectOpen: false,
-                finishedProject: false}
+                finishedProject: false,
+                ActiveEmployeeOpen: false}
         case FINISHED_PROJECT: 
             return {...state, 
                 finishedProject: action.payload, 
                 customerOpen: false, 
                 pausedProjectOpen: false,
-                activeProjectOpen : false}
+                activeProjectOpen : false,
+                ActiveEmployeeOpen: false}
         case PAUSED_PROJECT:
             return{...state,
                 pausedProjectOpen: action.payload,
                 customerOpen: false, 
                 activeProjectOpen : false,
-                finishedProject: false
+                finishedProject: false,
+                ActiveEmployeeOpen: false
             }
         case ACTIVEPROJECT_STATUS: 
             return {...state, 
                 activeProjectOpen: action.payload, 
                 customerOpen: false, 
                 pausedProjectOpen: false,
-                finishedProject : false}    
+                finishedProject : false,
+                ActiveEmployeeOpen: false} 
+        case ACTIVE_EMPLOYEE:
+            return{...state,
+                activeProjectOpen: false, 
+                customerOpen: false, 
+                pausedProjectOpen: false,
+                finishedProject : false,
+                ActiveEmployeeOpen: action.payload} 
         default:
             return state;
     }
@@ -64,6 +76,9 @@ export const changeStatus = (window, status) => (dispatch, getState) => {
         break;
         case 'pausedProject':
             CONS = PAUSED_PROJECT;
+        break;
+        case 'activeEmployee':
+            CONS = ACTIVE_EMPLOYEE;
         break;
         default:
         break;

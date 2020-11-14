@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const Input = (props) => {
     return(
-        <Fragment>
+        <div className="mb-3">
             <input 
                 type={props.type}
                 placeholder={props.placeholder}
-                className="form-control rounded-pill form-control-lg mt-3"
+                className="form-control rounded-pill form-control-lg "
                 name={props.name}
                 ref={props.constant({
                     required:{
@@ -22,7 +22,7 @@ const Input = (props) => {
                 {props.messageError}
             </span>
             ) : <h6></h6>}
-        </Fragment>
+        </div>
     );
 }
 
