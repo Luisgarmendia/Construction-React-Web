@@ -3,6 +3,7 @@ import { Collapse } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeStatus } from '../../../../../Redux/Actions/Modals';
 import AddProjectModal from '../Modals/AddProject';
+import ProjectDetail from '../Modals/ProjectDetail';
 
 const ActiveProject = (props) => {
 const isOpen = useSelector(state => state.collapseStatus.activeProjectOpen)
@@ -42,6 +43,7 @@ return (
                 </div>	)} 
             
                 </div>
+                <ProjectDetail />
             </div>
         </div>
     </Collapse>

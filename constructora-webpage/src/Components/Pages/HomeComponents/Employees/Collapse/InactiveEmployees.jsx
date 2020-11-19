@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState } from 'react';
 import { Collapse } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { ListItemIcon, ListItemText, IconButton } from "@material-ui/core";
@@ -11,7 +11,7 @@ import { StyledMenu, StyledMenuItem } from "../../Projects/CollapseTables/Styled
 import { changeStatus } from '../../../../../Redux/Actions/Modals';
 import AddEmployeeModal from '../ModalEmployees/AddEmployee';
 
-const ActiveEmployees = (props) => {
+const InactiveEmployees = () => {
     const isOpen = useSelector(store => store.collapseStatus);
     let customerList = useSelector(store => store.clients.clientList);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -129,11 +129,11 @@ const ActiveEmployees = (props) => {
     ];  
     
     const title = <div className="row border-darken-4 ">
-        <h3 className="blue-grey">Active Employees</h3>
+        <h3 className="blue-grey">Inactive Employees</h3>
         <a href={()=> false} onClick={() => dispatch(changeStatus('employee', true)) } className="success ml-auto "> Add <PersonAddRoundedIcon /></a>
         </div>
     return (
-        <Collapse in={isOpen.ActiveEmployeeOpen}>
+        <Collapse in={isOpen.inactiveEmployeesOpen}>
         <div className=" table-responsive">
             <AddEmployeeModal />
         <MuiDataTable title = {title} striped data={customerList} columns={columns} />
@@ -142,4 +142,4 @@ const ActiveEmployees = (props) => {
     );
     }
 
-export default ActiveEmployees;
+export default InactiveEmployees;

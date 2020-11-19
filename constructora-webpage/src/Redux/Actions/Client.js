@@ -65,7 +65,6 @@ export const getClientList = () => (dispatch, getState) => {
             return resolve(res.data.data);
         })
         .catch((err) => {
-            console.log(err)
             if(err.response && err.response.data)
                 return reject(err.response.data)
             else

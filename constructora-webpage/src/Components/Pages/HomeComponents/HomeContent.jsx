@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 import './HomeContentStyle.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { getClientList } from '../../../../Redux/Actions/Client';
-import { getProjects } from '../../../../Redux/Actions/Projects'
-import CustomerList from  '../Customer/Collapse/CustomerListCollapse';
-import { changeStatus } from '../../../../Redux/Actions/Collapse';
+import { getClientList } from '../../../Redux/Actions/Client';
+import { getProjects } from '../../../Redux/Actions/Projects'
+import CustomerList from  './Customer/Collapse/CustomerListCollapse';
+import { changeStatus } from '../../../Redux/Actions/Collapse';
 import { withRouter } from 'react-router-dom';
-import ActiveProject from '../Projects/CollapseTables/ActiveProject';
-import PausedProject from '../Projects/CollapseTables/PausedProject';
-import FinishedProject from '../Projects/CollapseTables/FinishedProject';
-import ActiveEmployees from '../Employees/Collapse/ActiveEmployees';
+import ActiveProject from './Projects/CollapseTables/ActiveProject';
+import PausedProject from './Projects/CollapseTables/PausedProject';
+import FinishedProject from './Projects/CollapseTables/FinishedProject';
+import ActiveEmployees from './Employees/Collapse/ActiveEmployees';
+import InactiveEmployees from './Employees/Collapse/InactiveEmployees';
+import UsersCollapse from './Others/Collapse/UsersCollapse';
+import HotelCollapse from './Others/Collapse/HotelsCollapse';
+
 
 const HomeConten = (props) => {
     const clients = useSelector(state => state.clients);
@@ -120,14 +124,14 @@ const HomeConten = (props) => {
         <div className="row">
 
             <div className="col-xl-3 col-sm-6 col-12">
-                <div className="card"onClick = { () => dispatch(changeStatus('activeEmployee', !collapseStatus.ActiveEmployeeOpen)) }>
+                <div className="card" onClick = { () => dispatch(changeStatus('activeEmployee', !collapseStatus.ActiveEmployeeOpen)) }>
                     <a href={() => false}>
                     <div className="card-content">
                         <div className="card-body">
                             <div className="media d-flex">
                                 <div className="media-body text-left">
                                     <h3 className="teal">223</h3>
-                                    <span>Actives</span>
+                                    <span  className="blue-grey darken-1">Actives</span>
                                 </div>
                                 <div className="align-self-center">
                                     <i className="icon-users teal font-large-2 float-right"></i>
@@ -140,13 +144,14 @@ const HomeConten = (props) => {
             </div>
 
             <div className="col-xl-3 col-sm-6 col-12">
-                <div className="card">
+                <div className="card" onClick={() => dispatch(changeStatus('inactiveEmployee', !collapseStatus.inactiveEmployeesOpen))}>
+                    <a href={()=> false}>
                     <div className="card-content">
                         <div className="card-body">
                             <div className="media d-flex">
                                 <div className="media-body text-left">
                                     <h3 className="red">21</h3>
-                                    <span>Inactive</span>
+                                    <span  className="blue-grey darken-1">Inactive</span>
                                 </div>
                                 <div className="align-self-center">
                                     <i className="icon-users red font-large-2 float-right"></i>
@@ -154,10 +159,62 @@ const HomeConten = (props) => {
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>
             <ActiveEmployees />
+            <InactiveEmployees />
+            <hr  />
+
+        <div className="text-left text-uppercase text-bold-700 my-3">
+            <h2>Others</h2>
+        </div>
+        <div className="row">
+
+            <div className="col-xl-3 col-sm-6 col-12 mb-3">
+                <div className="card" onClick = { () => dispatch(changeStatus('users', !collapseStatus.userOpen)) }>
+                    <a href={() => false}>
+                    <div className="card-content">
+                        <div className="card-body">
+                            <div className="media d-flex">
+                                <div className="media-body text-left">
+                                    <h3 className="cyan">223</h3>
+                                    <span  className="blue-grey darken-1">Users</span>
+                                </div>
+                                <div className="align-self-center">
+                                    <i className="icon-user cyan font-large-2 float-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+
+            <div className="col-xl-3 col-sm-6 col-12 mb-3 border-darken-2">
+                <div className="card " onClick = { () => dispatch(changeStatus('hotels', !collapseStatus.hotelOpen)) }>
+                    <a href={() => false}>
+                    <div className="card-content">
+                        <div className="card-body">
+                            <div className="media d-flex">
+                                <div className="media-body text-left">
+                                    <h3 className=" blue-grey">23</h3>
+                                    <span  className="blue-grey darken-1">Hotels</span>
+                                </div>
+                                <div className="align-self-center">
+                                    <i className="icon-calendar blue-grey font-large-2 float-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <UsersCollapse />
+        <HotelCollapse />
+
     </div>
     )
 }

@@ -1,7 +1,6 @@
 import React, { useState  } from 'react';
 import { Collapse } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux'; 
-import 'react-data-table-component-extensions/dist/index.css';
 import { ListItemIcon, ListItemText, IconButton } from "@material-ui/core";
 import MuiDataTable from "mui-datatables";
 import EditIcon from "@material-ui/icons/Edit";

@@ -49,7 +49,6 @@ export const getProjects = () => (dispatch, getState) => {
     return new Promise((resolve, reject) => {
         axios.get(PORT + '/project/getProjects')
         .then((res) => {
-            console.log(res)
             dispatch({
                 type:GET_PROJECTS,
                 payload: res.data.projects

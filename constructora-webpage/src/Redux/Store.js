@@ -4,10 +4,10 @@ import login from './LoginDucks';
 import employees from './EmployeesDucks';
 import isLogin from './Actions/IsLogin';
 import isOPen from './Actions/Modals';
-import customer from './Actions/Client'
+import customer from './Actions/Client';
 import collapseStatus from './Actions/Collapse';
-import projectsReducer from'./Actions/Projects'
-
+import projectsReducer from'./Actions/Projects';
+import occupationReducer from './Actions/Occupation';
 const rootReducer = combineReducers({
     login: login,
     projects: projectsReducer,
@@ -15,7 +15,8 @@ const rootReducer = combineReducers({
     clients: customer,
     token: isLogin,
     modalStatus: isOPen,
-    collapseStatus: collapseStatus
+    collapseStatus: collapseStatus,
+    occupations: occupationReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

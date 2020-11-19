@@ -4,10 +4,13 @@ import Input from '../../../../Reusables/Input';
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../../Reusables/Button';
-import ReactDatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { SetNewProject } from '../../../../../Redux/Actions/Projects';
-import { changeStatus } from '../../../../../Redux/Actions/Modals'
+import { changeStatus } from '../../../../../Redux/Actions/Modals';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    KeyboardDatePicker,
+    MuiPickersUtilsProvider
+  } from '@material-ui/pickers';
 
 const AddProjectModal = () => {
     const dispatch = useDispatch();
@@ -18,6 +21,11 @@ const AddProjectModal = () => {
         dispatch(SetNewProject(data));
     }
 
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
     return(
         <>
@@ -38,6 +46,7 @@ const AddProjectModal = () => {
                 <div className="container">
                     <div className="row">
                     <div className="col-xl-4 col-lg-6 col-sm-12">
+                    <h5>Name *</h5>
                     <Input
                         className="form-control mb-9" 
                         type="text" 
@@ -50,6 +59,7 @@ const AddProjectModal = () => {
                     </div>
 
                     <div className="col-xl-4 col-lg-6 col-sm-12">
+                    <h5>Address *</h5>
                     <Input
                         className="form-control mb-9" 
                         type="text" 
@@ -62,6 +72,7 @@ const AddProjectModal = () => {
                     </div>
 
                     <div className="col-xl-4 col-lg-6 col-sm-12">
+                    <h5>City *</h5>
                     <Input
                         className="form-control mb-9" 
                         type="text" 
@@ -74,6 +85,7 @@ const AddProjectModal = () => {
                     </div>
 
                     <div className="col-xl-4 col-lg-6 col-sm-12">
+                    <h5>Code</h5>
                     <Input
                         className="form-control mb-9" 
                         type="text" 
@@ -85,9 +97,7 @@ const AddProjectModal = () => {
                     </div>
 
                     <div className="col-xl-4 col-lg-6 col-sm-12">
-                    <label className="form_label">
-                        Select function
-                        </label>
+                    <h5>Customer *</h5>
                         <select name="customer" 
                         ref={register({
                             required: "select one option"
@@ -101,9 +111,24 @@ const AddProjectModal = () => {
                     </div>
 
                     <div className="col-xl-4 col-lg-6 col-sm-12">
-                    <label>React Datepicker</label>
+                    <h5>Project start *</h5>
                         <Controller
-                        as={ReactDatePicker}
+                        as={<MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                
+                        <KeyboardDatePicker
+                            autoOk
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                        />
+                    </MuiPickersUtilsProvider>}
                         control={control}
                         valueName="startDate" // DateSelect value's name is selected
                         onChange={([selected]) => selected}

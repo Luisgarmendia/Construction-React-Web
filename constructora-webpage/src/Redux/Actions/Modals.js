@@ -6,6 +6,7 @@ const data = {
     projectOpen : false,
     userOPen : false,
     setProjectModal : false,
+    newHotelOpen : false,
 }
 
 //Types
@@ -13,6 +14,8 @@ const CHANGE_CUSTOMER = "changeCustomer";
 const CHAGE_EMPLOYEE = "changeemploiyee"
 const CHANGE_PROJECT ="CHANGEproject";
 const CHANGE_USER = "CHANGEUSER";
+const CHANGE_HOTEL = "newHotelOpen : false,";
+
 //Reducer
 
 export default function isOPen(state = data, action){
@@ -25,6 +28,8 @@ export default function isOPen(state = data, action){
             return {...state, projectOpen: action.payload }
         case CHANGE_USER:
             return {...state, userOPen: action.payload }
+        case CHANGE_HOTEL:
+            return {...state, newHotelOpen: action.payload }
         default:
             return state;
     }
@@ -58,8 +63,13 @@ export const  changeStatus = (window, status) => (dispatch, getState) => {
                 payload: status
             })
         break;
+        case 'hotel': 
+            dispatch({
+                type: CHANGE_HOTEL,
+                payload: status
+            })
+        break;
         default:
-            console.log('none')
         break;  
     }
 }
