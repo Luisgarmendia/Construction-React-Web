@@ -11,7 +11,14 @@ import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider
   } from '@material-ui/pickers';
-
+  import MuiAlert from '@material-ui/lab/Alert';
+  import { changeSnackbarStatus } from '../../../../../Redux/SnackbarsStatus';
+  import Snackbar from '@material-ui/core/Snackbar';
+  
+  function Alert(props) {
+      return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+  
 const AddProjectModal = () => {
     const dispatch = useDispatch();
     const show = useSelector(state => state.modalStatus.projectOpen)
@@ -20,12 +27,13 @@ const AddProjectModal = () => {
     const onSubmit = (data) => {
         dispatch(SetNewProject(data));
     }
+    var snackStatus = useSelector(state => state.snackbar.project)
+    const vertical = 'top';
+    const horizontal = 'center';
 
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
+    const error =
+    errors.hasOwnProperty("startDate") &&
+    errors["startDate"].message;
 
     return(
         <>
@@ -42,6 +50,14 @@ const AddProjectModal = () => {
             </Modal.Title>
             </Modal.Header>
         <Modal.Body>
+        <Snackbar
+                anchorOrigin={{ vertical, horizontal }}
+                open={snackStatus}
+                onClose={() => dispatch(changeSnackbarStatus('projectWein', false))}
+                message="Error, check your credentials"
+                key={vertical + horizontal}
+            >
+            <Alert severity="error">save failed, try again!</Alert></Snackbar>
             <form onSubmit={handleSubmit(onSubmit)} className="form-group">
                 <div className="container">
                     <div className="row">
@@ -98,50 +114,55 @@ const AddProjectModal = () => {
 
                     <div className="col-xl-4 col-lg-6 col-sm-12">
                     <h5>Customer *</h5>
-                        <select name="customer" 
+                    <Controller
+                    as={
+                        <select
                         ref={register({
-                            required: "select one option"
+                            required: {
+                                value: true,
+                                message: "*-this field is required"
+                            }
                         })}>
                         <option value=""></option>
                         {customer.map((item, index) =>
                         
                         <option key={index} value={item._id}>{item.name}</option>)}
                         </select>
-                        {errors.func && <p style={{color:'red'}}> {errors.customer.message}</p> }       
+                    }
+                    control={control}
+                    name="customer"
+                    placeholder="Customer" />
+                        <span className="text-danger text-small d-block mb-2">
+                            {errors?.customer?.message}
+                        </span>     
                     </div>
 
                     <div className="col-xl-4 col-lg-6 col-sm-12">
-                    <h5>Project start *</h5>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <Controller
-                        as={<MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                
-                        <KeyboardDatePicker
-                            autoOk
-                            disableToolbar
-                            variant="inline"
-                            format="MM/dd/yyyy"
-                            margin="normal"
-                            id="date-picker-inline"
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                            }}
+                            as={
+                            <KeyboardDatePicker
+                                fullWidth
+                                autoOk
+                                error={!!error}
+                                inputVariant="outlined"
+                                variant="inline"
+                                format="dd/MM/yyyy"
+                                label="Start Date"
+                                helperText={error}
+                            />
+                            }
+                            control={control}
+                            name="startDate"
+                            placeholder="Start Date"
                         />
-                    </MuiPickersUtilsProvider>}
-                        control={control}
-                        valueName="startDate" // DateSelect value's name is selected
-                        onChange={([selected]) => selected}
-                        name="startDate"
-                        className="input"
-                        placeholderText="Select date"
-                        />
+                    </MuiPickersUtilsProvider>          
                         {errors.func && <p style={{color:'red'}}> {errors.startDate.message}</p> }       
                     </div>
 
                     <Button
                     type="submit"
-                    text="Log in" />
+                    text="Save" />
                     </div>
                 </div>    
             </form> 

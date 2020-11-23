@@ -6,16 +6,27 @@ import Button from '../../../../Reusables/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { setClient } from '../../../../../Redux/Actions/Client';
 import { changeStatus } from '../../../../../Redux/Actions/Modals';
+import MuiAlert from '@material-ui/lab/Alert';
+import { changeSnackbarStatus } from '../../../../../Redux/SnackbarsStatus';
+import Snackbar from '@material-ui/core/Snackbar';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
 const CustomerForm = (props) => {
     
     const{register, errors, handleSubmit} = useForm();
     const isOPen = useSelector(store => store.modalStatus.customerOpen)
     const dispatch = useDispatch();
+    var snackStatus = useSelector(state => state.snackbar.mdalCstmer)
+    const vertical = 'top';
+    const horizontal = 'center';
 
     const onSubmit = (data) => {
         dispatch(setClient(data))
     }
+
 
     return(
         <Modal
@@ -30,6 +41,14 @@ const CustomerForm = (props) => {
             </Modal.Title>
             </Modal.Header>
         <Modal.Body>
+        <Snackbar
+                anchorOrigin={{ vertical, horizontal }}
+                open={snackStatus}
+                onClose={() => dispatch(changeSnackbarStatus('modalCstomer', false))}
+                message="Error, check your credentials"
+                key={vertical + horizontal}
+            >
+            <Alert severity="error">save failed, try again!</Alert></Snackbar>
             <div className="container modal-container">
                     
                     <form onSubmit={handleSubmit(onSubmit)} className="form-group">

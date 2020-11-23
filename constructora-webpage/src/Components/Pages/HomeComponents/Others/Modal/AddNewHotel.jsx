@@ -6,6 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../../Reusables/Button';
 import { SetNewProject } from '../../../../../Redux/Actions/Projects';
 import { changeStatus } from '../../../../../Redux/Actions/Modals';
+import { setNewHotel } from '../../../../../Redux/Actions/Hotel';
+import MuiAlert from '@material-ui/lab/Alert';
+import { changeSnackbarStatus } from '../../../../../Redux/SnackbarsStatus';
+import Snackbar from '@material-ui/core/Snackbar';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default function AddNewHotel(){
     const dispatch = useDispatch();
@@ -13,8 +21,11 @@ export default function AddNewHotel(){
     const customer = useSelector(state => state.clients.clientList)
     const {register, errors, handleSubmit, reset, control } = useForm();
     const onSubmit = (data) => {
-        dispatch(SetNewProject(data));
+        dispatch(setNewHotel(data));
     }
+    var snackStatus = useSelector(state => state.snackbar.hotel)
+    const vertical = 'top';
+    const horizontal = 'center';
 
     return(
         <>
@@ -31,6 +42,14 @@ export default function AddNewHotel(){
             </Modal.Title>
             </Modal.Header>
         <Modal.Body>
+        <Snackbar
+                anchorOrigin={{ vertical, horizontal }}
+                open={snackStatus}
+                onClose={() => dispatch(changeSnackbarStatus('hotelis', false))}
+                message="Error, check your credentials"
+                key={vertical + horizontal}
+            >
+            <Alert severity="error">save failed, try again!</Alert></Snackbar>
             <form onSubmit={handleSubmit(onSubmit)} className="form-group">
                 <div className="container">
                     <div className="row">

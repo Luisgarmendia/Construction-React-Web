@@ -7,15 +7,28 @@ import Button from '../../../../Reusables/Button';
 import { changeStatus } from '../../../../../Redux/Actions/Modals';
 import { setNewEmployee } from '../../../../../Redux/Actions/Employees';
 import { MenuItem, TextField } from '@material-ui/core';
+import SelectBox from '../../../../Reusables/SelectBox';
+import MuiAlert from '@material-ui/lab/Alert';
+import { changeSnackbarStatus } from '../../../../../Redux/SnackbarsStatus';
+import Snackbar from '@material-ui/core/Snackbar';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const AddEmployeeModal = (props) => {
     const dispatch = useDispatch();
-    const show = useSelector(state => state.modalStatus.employeeOpen)
+    const show = useSelector(state => state.modalStatus.employeeOpen);
+    const hotelList = useSelector(state => state.hotels);
+    const projectList = useSelector(state => state.projects.actives)
     const {register, errors, handleSubmit, control } = useForm();
     const onSubmit = (data) => {
         dispatch(setNewEmployee(data));
     }
 
+    var snackStatus = useSelector(state => state.snackbar.employees)
+    const vertical = 'top';
+    const horizontal = 'center';
 
     return(
         <>
@@ -31,6 +44,14 @@ const AddEmployeeModal = (props) => {
             </Modal.Title>
             </Modal.Header>
         <Modal.Body>
+        <Snackbar
+                anchorOrigin={{ vertical, horizontal }}
+                open={snackStatus}
+                onClose={() => dispatch(changeSnackbarStatus('employeeW', false))}
+                message="Error, check your credentials"
+                key={vertical + horizontal}
+            >
+            <Alert severity="error">save failed, try again!</Alert></Snackbar>
             <form onSubmit={handleSubmit(onSubmit)} className="form-group">
                 <div className="container">
                     <div className="row justify-content-center">
@@ -96,30 +117,37 @@ const AddEmployeeModal = (props) => {
                                 placeholder="Email"
                                 name="email"
                                 constant={register}
-                                required={true}
+                                required={false}
                                 messageError={errors?.email?.message} />
                         </div>
 
                         <div className="col-sm-4">
                             <h5>Asign project *</h5>
-                            <Input 
-                                type="text"
-                                placeholder="Asign project"
-                                name="assignedProjects"
-                                constant={register}
-                                required={true}
-                                messageError={errors?.assignedProjects?.message} />
+                            <SelectBox
+                            name="Project"
+                            constant={register}
+                            required={true}
+                            list={projectList} />
                         </div>
 
                         <div className="col-sm-4">
                             <h5>Hotel</h5>
+                            <SelectBox
+                            name="hotel"
+                            constant={register}
+                            required={true}
+                            list={hotelList.hotels} />
+                        </div>
+
+                        <div className="col-sm-4">
+                            <h5>Room</h5>
                             <Input 
                                 type="text"
-                                placeholder="Hotel"
-                                name="hotel"
+                                placeholder="Room"
+                                name="room"
                                 constant={register}
                                 required={true}
-                                messageError={errors?.hotel?.message} />
+                                messageError={errors?.room?.message} />
                         </div>
 
                         <div className="col-sm-4">
@@ -151,7 +179,7 @@ const AddEmployeeModal = (props) => {
                                 placeholder="Hourly wage"
                                 name="hourlySalary"
                                 constant={register}
-                                required={false}
+                                required={true}
                                 messageError={errors?.hourlySalary?.message} />
                         </div>
 
@@ -159,7 +187,7 @@ const AddEmployeeModal = (props) => {
                         <div className="col-4 mx-auto">
                             <Button
                             type="submit"
-                            text="Log in" />
+                            text="Save" />
                         </div>
                 </div>    
             </form> 

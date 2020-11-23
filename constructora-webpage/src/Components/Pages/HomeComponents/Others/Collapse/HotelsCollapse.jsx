@@ -1,27 +1,28 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
+import { MDBDataTable } from "mdbreact";
 import { Collapse } from 'react-bootstrap';
 import { changeStatus } from '../../../../../Redux/Actions/Modals';
 import AddNewHotel from '../Modal/AddNewHotel';
+import Button from '../../../../Reusables/Button';
 
 const HotelCollapse = () => {
-    const isOpen = useSelector(state => state.collapseStatus.hotelOpen)
-const dispatch = useDispatch();
-const projectList = useSelector(state => state.projects.actives);
-
+    const isOpen = useSelector(state => state.collapseStatus.hotelOpen);
+    const hotelsList = useSelector(state => state.hotels.hotels);
+    const projectList = useSelector(state => state.projects.actives);
+    const dispatch = useDispatch();
+    
     const data = {
             columns: [
             {
-                label: "Name",
-                field: "name",
+                label: "name",
+                field: 'name',
                 sort: "asc",
                 width: 150
             },
             {
-                label: "Address",
+                label: "address",
                 field: "address",
-                sort: "asc",
                 width: 100
             },
             {
@@ -37,49 +38,19 @@ const projectList = useSelector(state => state.projects.actives);
                 width: 150
             },
             ],
-            rows: [
-            {
-                name: "Tiger Nixon",
-                address: "System Architect",
-                city: "Edinburgh",
-                state: "61"
-            },
-            {
-                name: "Yuri Berry",
-                address: "Chief Marketing Officer (CMO)",
-                city: "New York",
-                state: "40",
-            },
-            {
-                name: "Caesar Vance",
-                address: "Pre-Sales Support",
-                city: "New York",
-                state: "21",
-            },
-            {
-                name: "Doris Wilder",
-                address: "Sales Assistant",
-                city: "Sidney",
-                state: "23",
-            },
-            {
-                name: "Angelica Ramos",
-                address: "Chief Executive Officer (CEO)",
-                city: "London",
-                state: "47",
-            },
-            ]
+            rows: hotelsList
         };
 
         return(
             <Collapse in={isOpen}>
                 <div>
-                <button onClick={() => dispatch(changeStatus('hotel', true))}>new</button>
+                    <div className="col-4">
+                        <Button type="submit" text="New hotel" onClick={() => dispatch(changeStatus('hotel', true))} />
+                    </div>
                 <AddNewHotel />
-                <MDBTable  striped>
-                <MDBTableHead columns={data.columns} />
-                <MDBTableBody rows={data.rows} />
-                </MDBTable>
+                <MDBDataTable  striped
+                columns={data.columns} 
+                rows={data.rows} />
                 </div>
             </Collapse>
         )

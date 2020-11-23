@@ -1,4 +1,4 @@
-
+import {loadingChangeStatus} from '../loadingDuck';
 
 //constants
 const data ={
@@ -25,16 +25,18 @@ export default function isLogin(state = data, action){
 
 export const verifyLogin  = (history) => async(dispatch, getState) => {
     return new Promise((resolve, reject) => {
-        var token = localStorage.getItem('Token')
+        var token = localStorage.getItem('tcpToken')
         if(token != null){
             dispatch({
                 type: IS_LOGIN,
                 payload: token
             })
+            dispatch(loadingChangeStatus(false))
             history.push('/home')
             return resolve(token);
         }
         else{
+            dispatch(loadingChangeStatus(false))
             return reject({error: true, })
         }
     })

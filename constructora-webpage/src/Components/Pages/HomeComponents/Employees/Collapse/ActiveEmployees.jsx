@@ -13,7 +13,7 @@ import AddEmployeeModal from '../ModalEmployees/AddEmployee';
 
 const ActiveEmployees = (props) => {
     const isOpen = useSelector(store => store.collapseStatus);
-    let customerList = useSelector(store => store.clients.clientList);
+    let activeEmployeesList = useSelector(store => store.employees.actives);
     const [anchorEl, setAnchorEl] = useState(null);
     const dispatch = useDispatch();
 
@@ -135,8 +135,7 @@ const ActiveEmployees = (props) => {
     return (
         <Collapse in={isOpen.ActiveEmployeeOpen}>
         <div className=" table-responsive">
-            <AddEmployeeModal />
-        <MuiDataTable title = {title} striped data={customerList} columns={columns} />
+        <MuiDataTable title = {title} striped data={activeEmployeesList} columns={columns} />
         </div>
         </Collapse>
     );

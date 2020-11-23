@@ -9,6 +9,8 @@ const collapse = {
     finishedProject : false,
     userOpen : false,
     hotelOpen : false,
+    checkListEmployees : false,
+    summaryProjectPay : false
 }
 
 ////////Types
@@ -20,6 +22,8 @@ const ACTIVE_EMPLOYEE = "activeEmployee";
 const INACTIVE_EMPLOYEES = "inactiveEmployeesOpenDS";
 const USERS = "usersCollapseOpen";
 const HOTEL = "hotelOpen : false,";
+const CHECKLIST  = "CHECKLISTEMPLOYESSS";
+const SUMMARYPAYPROJECT = "umaryPAyPRojectSumm"
 
 /////////Reducer
 
@@ -34,6 +38,8 @@ export default function collapseStatus(state = collapse, action){
                 inactiveEmployeesOpen : false,
                 userOpen : false,
                 hotelOpen : false,
+                checkListEmployees : false,
+                summaryProjectPay : false,
                 ActiveEmployeeOpen: false}
         case FINISHED_PROJECT: 
             return {...state, 
@@ -44,6 +50,8 @@ export default function collapseStatus(state = collapse, action){
                 inactiveEmployeesOpen : false,
                 userOpen : false,
                 hotelOpen : false,
+                checkListEmployees : false,
+                summaryProjectPay : false,
                 ActiveEmployeeOpen: false}
         case PAUSED_PROJECT:
             return{...state,
@@ -54,6 +62,8 @@ export default function collapseStatus(state = collapse, action){
                 inactiveEmployeesOpen : false,
                 userOpen : false,
                 hotelOpen : false,
+                checkListEmployees : false,
+                summaryProjectPay : false,
                 ActiveEmployeeOpen: false
             }
         case ACTIVEPROJECT_STATUS: 
@@ -65,6 +75,8 @@ export default function collapseStatus(state = collapse, action){
                 inactiveEmployeesOpen : false,
                 userOpen : false,
                 hotelOpen : false,
+                checkListEmployees : false,
+                summaryProjectPay : false,
                 ActiveEmployeeOpen: false} 
         case ACTIVE_EMPLOYEE:
             return{...state,
@@ -75,6 +87,8 @@ export default function collapseStatus(state = collapse, action){
                 inactiveEmployeesOpen : false,
                 userOpen : false,
                 hotelOpen : false,
+                summaryProjectPay : false,
+                checkListEmployees : false,
                 ActiveEmployeeOpen: action.payload}
         case INACTIVE_EMPLOYEES:
             return {...state,
@@ -86,6 +100,8 @@ export default function collapseStatus(state = collapse, action){
                 ActiveEmployeeOpen: false,
                 userOpen : false,
                 hotelOpen : false,
+                summaryProjectPay : false,
+                checkListEmployees : false,
             }
         case USERS:
             return  {...state,
@@ -96,6 +112,8 @@ export default function collapseStatus(state = collapse, action){
                 finishedProject : false,
                 ActiveEmployeeOpen: false,
                 hotelOpen : false,
+                summaryProjectPay : false,
+                checkListEmployees : false,
                 userOpen : action.payload,
             }
         case HOTEL:
@@ -107,7 +125,35 @@ export default function collapseStatus(state = collapse, action){
                 finishedProject : false,
                 ActiveEmployeeOpen: false,
                 userOpen : false,
+                summaryProjectPay : false,
+                checkListEmployees : false,
                 hotelOpen : action.payload,
+            }
+        case CHECKLIST:
+            return {...state,
+                inactiveEmployeesOpen : false,
+                activeProjectOpen: false, 
+                customerOpen: false, 
+                pausedProjectOpen: false,
+                finishedProject : false,
+                ActiveEmployeeOpen: false,
+                userOpen : false,
+                summaryProjectPay : false,
+                checkListEmployees : action.payload,
+                hotelOpen : false,
+            }
+        case SUMMARYPAYPROJECT:
+            return {...state,
+                inactiveEmployeesOpen : false,
+                activeProjectOpen: false, 
+                customerOpen: false, 
+                pausedProjectOpen: false,
+                finishedProject : false,
+                ActiveEmployeeOpen: false,
+                userOpen : false,
+                checkListEmployees : false,
+                hotelOpen : false,
+                summaryProjectPay : action.payload,
             }
         default:
             return state;
@@ -142,6 +188,12 @@ export const changeStatus = (window, status) => (dispatch, getState) => {
         break;
         case 'hotels':
             CONS = HOTEL;
+        break;
+        case 'checkEMployees':
+            CONS = CHECKLIST;
+        break;
+        case 'summaryProject':
+            CONS = SUMMARYPAYPROJECT;
         break;
         default:
         break;

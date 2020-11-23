@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+import { changeStatus } from './Modals';
+import { changeSnackbarStatus } from '../SnackbarsStatus';
 //constants
 const PORT = process.env.REACT_APP_API_URL;
 const data = {
@@ -34,17 +35,20 @@ export const setClient = (data) => (dispatch, getState) => {
             contactPhone: data.contactPhone,
             email: data.email,
             registrationDate: Date.now(),
-            registrantEmployee: '5f988684a6c28d8805c8c37e'
+            companyID: localStorage.getItem('tcpCompanyID'),
+            registrantEmployee: localStorage.getItem('tcpUserID')
         })
         .then((res) => {
             dispatch({
                 type: SET_CLIENT,
                 payload: res.data.client
             })
-
+            dispatch(changeStatus('customer', false));
+            dispatch(getClientList());
             return resolve(res.data.client)
         })
         .catch((err) => {
+            dispatch(changeSnackbarStatus('modalCstomer', true));
             if(err.response && err.response.data)
                 return reject(err.response.data)
             else

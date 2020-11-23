@@ -13,18 +13,22 @@ import ActiveEmployees from './Employees/Collapse/ActiveEmployees';
 import InactiveEmployees from './Employees/Collapse/InactiveEmployees';
 import UsersCollapse from './Others/Collapse/UsersCollapse';
 import HotelCollapse from './Others/Collapse/HotelsCollapse';
-
+import { getHotelList } from '../../../Redux/Actions/Hotel';
+import { getEmployeesList } from '../../../Redux/Actions/Employees';
 
 const HomeConten = (props) => {
     const clients = useSelector(state => state.clients);
     const collapseStatus = useSelector(state => state.collapseStatus);
-    const projects = useSelector(state => state.projects)
+    const projects = useSelector(state => state.projects);
+    const employees = useSelector(state => state.employees)
+    const hotels = useSelector(state => state.hotels);
     const dispatch = useDispatch();
     
     useEffect(()=> {
         dispatch(getClientList());
         dispatch(getProjects());
-        console.log('aver')
+        dispatch(getHotelList());
+        dispatch(getEmployeesList())
     }, [])
 
     return(
@@ -130,7 +134,7 @@ const HomeConten = (props) => {
                         <div className="card-body">
                             <div className="media d-flex">
                                 <div className="media-body text-left">
-                                    <h3 className="teal">223</h3>
+                                    <h3 className="teal">{employees.actives.length}</h3>
                                     <span  className="blue-grey darken-1">Actives</span>
                                 </div>
                                 <div className="align-self-center">
@@ -150,7 +154,7 @@ const HomeConten = (props) => {
                         <div className="card-body">
                             <div className="media d-flex">
                                 <div className="media-body text-left">
-                                    <h3 className="red">21</h3>
+                                    <h3 className="red">{employees.inactives.length}</h3>
                                     <span  className="blue-grey darken-1">Inactive</span>
                                 </div>
                                 <div className="align-self-center">
@@ -199,7 +203,7 @@ const HomeConten = (props) => {
                         <div className="card-body">
                             <div className="media d-flex">
                                 <div className="media-body text-left">
-                                    <h3 className=" blue-grey">23</h3>
+                                    <h3 className=" blue-grey">{hotels.hotels.length}</h3>
                                     <span  className="blue-grey darken-1">Hotels</span>
                                 </div>
                                 <div className="align-self-center">

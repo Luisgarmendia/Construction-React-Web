@@ -19,7 +19,6 @@ return (
 				<div className="col-sm-6 col-lg-3 col-xs-12 mb-2">
 					<button onClick={() => dispatch(changeStatus('project', true))} className="col btn btn-dark-moon btn-rounded">New project</button>
 				</div>
-                <AddProjectModal />
                 </div>
                 <div className="row">
                     {projectList.map((item, index) => 

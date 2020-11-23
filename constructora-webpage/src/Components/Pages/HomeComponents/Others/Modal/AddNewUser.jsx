@@ -6,6 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../../Reusables/Button';
 import { SetNewProject } from '../../../../../Redux/Actions/Projects';
 import { changeStatus } from '../../../../../Redux/Actions/Modals';
+import MuiAlert from '@material-ui/lab/Alert';
+import { changeSnackbarStatus } from '../../../../../Redux/SnackbarsStatus';
+import Snackbar from '@material-ui/core/Snackbar';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const AddUser = () => {
     const dispatch = useDispatch();
@@ -15,6 +22,9 @@ const AddUser = () => {
     const onSubmit = (data) => {
         dispatch(SetNewProject(data));
     }
+    var snackStatus = useSelector(state => state.snackbar.user)
+    const vertical = 'top';
+    const horizontal = 'center';
 
     return(
         <>
@@ -31,6 +41,14 @@ const AddUser = () => {
             </Modal.Title>
             </Modal.Header>
         <Modal.Body>
+        <Snackbar
+                anchorOrigin={{ vertical, horizontal }}
+                open={snackStatus}
+                onClose={() => dispatch(changeSnackbarStatus('projectWein', false))}
+                message="Error, check your credentials"
+                key={vertical + horizontal}
+            >
+            <Alert severity="error">save failed, try again!</Alert></Snackbar>
             <form onSubmit={handleSubmit(onSubmit)} className="form-group">
                 <div className="container">
                     <div className="row">
