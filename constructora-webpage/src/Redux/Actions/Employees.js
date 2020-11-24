@@ -75,8 +75,8 @@ export const setNewEmployee = (d) => async(dispatch, getState) => {
     "hourlySalary" : d.hourlySalary,
         })
         .then((res) => {
-            dispatch(getEmployeesList());
             dispatch(changeStatus('employee', false));
+            dispatch(getEmployeesList());
             return resolve(res.data.employee);
         })
         .catch((err) => {

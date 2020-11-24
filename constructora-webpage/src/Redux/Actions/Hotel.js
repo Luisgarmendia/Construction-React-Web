@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { changeSnackbarStatus } from '../SnackbarsStatus';
+import { changeStatus } from './Modals'
 
 //Constants
 const PORT = process.env.REACT_APP_API_URL;
@@ -37,7 +38,8 @@ export const setNewHotel = (data) => (dispatch, getState) => {
             'date' : Date.now()
         })
         .then((res) => {
-            getHotelList()
+            dispatch(getHotelList());
+            dispatch(changeStatus('hotel', false))
         })
         .catch((err) => {
             dispatch(changeSnackbarStatus('hotelis', true))

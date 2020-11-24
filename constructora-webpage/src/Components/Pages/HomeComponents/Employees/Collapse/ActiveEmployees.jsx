@@ -1,29 +1,14 @@
-import React, { useState, useEffect  } from 'react';
+import React from 'react';
 import { Collapse } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { ListItemIcon, ListItemText, IconButton } from "@material-ui/core";
 import MuiDataTable from "mui-datatables";
-import EditIcon from "@material-ui/icons/Edit";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import MenuIcon from "@material-ui/icons/Menu";
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
-import { StyledMenu, StyledMenuItem } from "../../Projects/CollapseTables/StyledMenu";
 import { changeStatus } from '../../../../../Redux/Actions/Modals';
-import AddEmployeeModal from '../ModalEmployees/AddEmployee';
 
 const ActiveEmployees = (props) => {
     const isOpen = useSelector(store => store.collapseStatus);
     let activeEmployeesList = useSelector(store => store.employees.actives);
-    const [anchorEl, setAnchorEl] = useState(null);
     const dispatch = useDispatch();
-
-    const handleClickMenu = (e) => {
-        setAnchorEl(e.currentTarget);
-    };
-
-    const handleCloseMenu = () => {
-        setAnchorEl(null);
-    };
 
     
     const columns = [
@@ -54,16 +39,6 @@ const ActiveEmployees = (props) => {
         sortable: true
         },
         {
-        label: 'Salary/Hour',
-        name: 'hourlySalary',
-        sortable: true
-        },
-        {
-        label: 'Labor',
-        name: 'labor',
-        sortable: true
-        },
-        {
         label: 'Hotel',
         name: 'hotel',
         sortable: true
@@ -73,59 +48,6 @@ const ActiveEmployees = (props) => {
         name: 'city',
         sortable: true
         },
-        {
-        name: "actions",
-        label: "Actions ",
-        options: {
-            viewColumns: false,
-            filter: false,
-            customBodyRender: (value, tableMeta, updateValue) => {
-            return (
-                <div>
-                <IconButton
-                    onClick={(e) => {
-                    handleClickMenu(e);
-                    }}
-                >
-                    <MenuIcon />
-                </IconButton>
-                <StyledMenu
-                    id={`customized-menu-${tableMeta.rowIndex}`}
-                    key={tableMeta.rowData[0]}
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleCloseMenu}
-                >
-                    <StyledMenuItem
-                    onClick={() => {
-                        handleCloseMenu();
-                        alert('bloqueado')
-                        /*alert(`Editar cuenta de ${tableMeta.rowData[tableMeta.rowData + 1]}`);*/
-                    }}
-                    >
-                    <ListItemIcon>
-                        <EditIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Edit" />
-                    </StyledMenuItem>
-                    <StyledMenuItem
-                    onClick={() => {
-                        handleCloseMenu();
-                        alert(`Reiniciar contraseña de ${tableMeta.rowData[1]}`);
-                    }}
-                    >
-                    <ListItemIcon>
-                        <VpnKeyIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Delete" />
-                    </StyledMenuItem>
-                </StyledMenu>
-                </div>
-            );
-            }
-        }
-        }
     ];  
     
     const title = <div className="row border-darken-4 ">

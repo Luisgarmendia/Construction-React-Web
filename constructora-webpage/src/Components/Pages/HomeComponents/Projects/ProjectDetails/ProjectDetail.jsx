@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NavBar from '../../../NavBar/Navbar';
 import CheckingCollapse from './Collapse/CheckingAssistence';
@@ -6,16 +6,25 @@ import SummaryCollapse from './Collapse/EmployeeSummary';
 import { getEmployeesByProject } from '../../../../../Redux/Actions/Projects';
 import Button from '../../../../Reusables/Button';
 import {changeStatus} from '../../../../../Redux/Actions/Collapse';
-import { useParams } from 'react-router-dom';  
+import { useParams } from 'react-router-dom';
+import { changeStatus as statusModalChange } from '../../../../../Redux/Actions/Modals';
+import AddProjectModal from './Modals/AddEmployee';
+import { getProjectDetail } from '../../../../../Redux/Actions/Projects';
+import moment from 'moment';
+import Loading from '../../../../Reusables/Loading';
 
 const ProjectDetail = (props) => {
     const dispatch = useDispatch();
     const collapseStatus = useSelector(state => state.collapseStatus);
-    const employeesList = useSelector(state => state.projects)
-
+    const project = useSelector(state => state.projects.projectDetail);
+    const loading = useSelector(state => state.loading.loadingPRojectDetaild)
     const {id} = useParams();
-
+    useEffect(()=>  dispatch(getProjectDetail(id)), [])
     
+    if(loading){
+        return(<Loading />)
+    }
+    else{
     return(
         <div>
             <NavBar />
@@ -23,15 +32,15 @@ const ProjectDetail = (props) => {
                 <div className="row">
                     <div className="col-sm-6 col-lg-4">
                         <h5 className="text-left text-uppercase text-bold-300 ">Customer:</h5>
-                        <h4 className="text-left text-uppercase text-bold-700 ml-1">TCP Construction</h4>
+    <h4 className="text-left text-uppercase text-bold-700 ml-1">{project.customer.name}</h4>
                     </div>
                     <div className="col-sm-6 col-lg-4">
                         <h5 className="text-left text-uppercase text-bold-300 ">Project:</h5>
-                        <h4 className="text-left text-uppercase text-bold-700 ml-1">Jurassic Park</h4>
+                        <h4 className="text-left text-uppercase text-bold-700 ml-1">{project.name}</h4>
                     </div>
                     <div className="col-sm-6 col-lg-4">
                         <h5 className="text-left text-uppercase text-bold-300 ">Start Date:</h5>
-                        <h4 className="text-left text-uppercase text-bold-700 ml-1">14 November 2023</h4>
+                        <h4 className="text-left text-uppercase text-bold-700 ml-1">{moment(project.startDate).format('LL')}</h4>
                     </div>
                 </div>  
                 <hr/>
@@ -40,8 +49,8 @@ const ProjectDetail = (props) => {
             <h2>Employees</h2>
         </div>
 
-        <div className="col-4">
-                        <Button type="submit" text="Add employee" onClick={() => dispatch()} />
+        <div className="col-4 mb-2">
+                        <Button type="submit" text="Add employee" onClick={() => dispatch(statusModalChange('setEmployToPRojec', true))} />
                     </div>
         <div className="row">
 
@@ -85,11 +94,13 @@ const ProjectDetail = (props) => {
                 </div>
             </div>
         </div>
+        <AddProjectModal />
             <CheckingCollapse />
             <SummaryCollapse />
             </div>
         </div>
     )
+    }
 }
 
 export default ProjectDetail;

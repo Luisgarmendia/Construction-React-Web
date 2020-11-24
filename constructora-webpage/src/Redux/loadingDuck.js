@@ -3,13 +3,14 @@
 ////constantes
 
 const data = {
-    isLoading : false
+    isLoading : true,
+    loadingPRojectDetaild: true,
 };
 
 
 ///////Types
 const LOADING = "isLoadingType";
-
+const LOADINGPROJECTDETAIL = 'LoadinfgporjectDetail';
 
 ///Reducer
 
@@ -17,6 +18,8 @@ export default function loading(state = data, action){
     switch(action.type){
         case LOADING:
             return {...state, isLoading : action.payload}
+        case LOADINGPROJECTDETAIL:
+            return {...state, loadingPRojectDetaild: action.payload}
         default:
             return state;
     }
@@ -24,9 +27,18 @@ export default function loading(state = data, action){
 
 ///Actions
 
-export const loadingChangeStatus = (status) => async (dispatch, getState) => {
+export const loadingChangeStatus = (window, status) => async (dispatch, getState) => {
+    var C;
+    switch(window){
+        case 'projectDetail':
+            C = LOADINGPROJECTDETAIL;
+        break;
+        default:
+            C = LOADING
+        break;
+    }
     dispatch({
-        type: LOADING,
+        type: C,
         payload: status
     })
 }

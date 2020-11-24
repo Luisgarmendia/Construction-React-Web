@@ -223,4 +223,4 @@ const HomeConten = (props) => {
     )
 }
 
-export default withRouter(HomeConten);
+export default HomeConten;

@@ -54,11 +54,6 @@ const InactiveEmployees = () => {
         sortable: true
         },
         {
-        label: 'Salary/Hour',
-        name: 'hourlySalary',
-        sortable: true
-        },
-        {
         label: 'Labor',
         name: 'labor',
         sortable: true

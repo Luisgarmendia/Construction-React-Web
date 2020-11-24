@@ -29,10 +29,10 @@ function AppWrapper(){
     return(
             <Router>
                 <Switch>
-                    <Route path="/" exact component={SignIn} />
-                    <Route path="/SignUp" exact component={SignUp} />
-                    <Route path="/Home/" exact component={Home} />
-                    <Route path="/Home/ProjectDetail/:id" component={ProjectDetail} />
+                    <Route exact path="/"  component={SignIn} />
+                    <Route exact path="/SignUp" component={SignUp} />
+                    <Route exact path="/Home/" component={Home} />
+                    <Route exact path="/ProjectDetail/:id" component={ProjectDetail} />
                 </Switch>
             </Router>
     );

@@ -1,11 +1,12 @@
 import React, { useState  } from 'react';
 import { Collapse } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { changeStatus } from '../../../../../Redux/Actions/Modals';
 import AddProjectModal from '../Modals/AddProject';
 
 const ActiveProject = (props) => {
+    const history = props.history
 const isOpen = useSelector(state => state.collapseStatus.activeProjectOpen)
 const dispatch = useDispatch();
 const projectList = useSelector(state => state.projects.actives)
@@ -25,24 +26,25 @@ return (
                 <div className="row">
                     {projectList.map((item) => 
                     <div className="col-xl-3 col-sm-6 col-12" key={item._id}>
-                        <Link to={`/Home/ProjectDetail/${item._id}`}>
-                            {this.props.children}
-                        <div className="card" >
-                        <div className="card-content">
-                            <div className="card-body">
-                            <div className="media d-flex">
-                                <div className="media-body text-left">
-                                <h5 className="primary">{item.name}</h5>
-                                <span className="blue-grey darken-1">{item.city}</span>
+                        <a href={()=> false}>
+                            <div className="card">
+                                <Link to={ `/ProjectDetail/${item._id}`}>
+                            <div className="card-content">
+                                <div className="card-body">
+                                <div className="media d-flex">
+                                    <div className="media-body text-left">
+                                    <h5 className="primary">{item.name}</h5>
+                                    <span className="blue-grey darken-1">{item.city}</span>
+                                    </div>
+                                    <div className="align-self-center">
+                                    <i className="icon-rocket primary font-large-1 float-right"></i>
+                                    </div>
                                 </div>
-                                <div className="align-self-center">
-                                <i className="icon-rocket primary font-large-1 float-right"></i>
                                 </div>
                             </div>
+                            </Link>
                             </div>
-                        </div>
-                        </div>
-                    </Link>
+                        </a>
                 </div>	)} 
             
                 </div>
@@ -52,4 +54,4 @@ return (
 );
 }
 
-export default Redirect(ActiveProject);
+export default withRouter(ActiveProject);

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { changeStatus } from './Modals';
 import { changeSnackbarStatus } from '../SnackbarsStatus';
-
-
+import { loadingChangeStatus } from '../loadingDuck';
+import { getEmployeesList } from './Employees';
 
 ////constants
 const PORT = process.env.REACT_APP_API_URL;
@@ -10,13 +10,15 @@ const projects = {
     actives: [],
     paused: [],
     finished: [],
-    employeesByProject: []
+    employeesByProject: [],
+    projectDetail: []
 }
 
 //////Types
 const GET_PROJECTS = 'GetallProjects';
 const SET_PROJECT = "setProject";
 const GET_EMPLOYEES = "getemployeesByProject";
+const PROJECTDETAIL = "projectDetailsom";
 
 //////REducer
 
@@ -45,6 +47,8 @@ export default function projectsReducer(state = projects, action){
             return {...state}
         case GET_EMPLOYEES:
             return {...state, employeesByProject: action.payload}
+        case PROJECTDETAIL:
+            return {...state, projectDetail: action.payload }
         default:
             return state;
     }
@@ -60,6 +64,7 @@ export const getProjects = () => (dispatch, getState) => {
                 type:GET_PROJECTS,
                 payload: res.data.projects
             })
+            dispatch(loadingChangeStatus(false));
             return resolve(res.data.projects)
         })
         .catch((err) => {
@@ -118,6 +123,57 @@ export const getEmployeesByProject = (projectID) => (dispatch, getState) => {
                 return reject(err.response.data)
             else
                 return reject({error: true, message: `Error: ${err}`})
+        })
+    })
+}
+
+export const getProjectDetail = (projectID) => (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+        axios.get(PORT + `/project/getProjectByID/${projectID}`)
+        .then((res) => {
+            dispatch({
+                type: PROJECTDETAIL,
+                payload: res.data.project
+            })
+            dispatch(loadingChangeStatus('projectDetail', false))
+            return resolve(res.data.project)
+        })
+        .catch((err) => {
+            if(err.response && err.response.data)
+                return reject(err.response.data)
+            else
+                return reject({error: true, message:`Error: ${err}`})
+        })
+    })
+}
+
+export const setEmployeesToProject = (lists, projectID) => (dispatch, getState) => {
+    var list = [];
+    for(var i in lists){
+        let object = {
+            _id: lists[i]._id,
+            salary: lists[i].salary,
+            data: []
+        }
+        list.push(object);
+    }
+    return new Promise((resolve, reject) => {
+        axios.post(PORT + '/project/addEmployToProject',
+        {
+            'Lists' : list,
+            'projectID' : projectID
+        })
+        .then(async(res) => {
+            await dispatch(changeStatus('setEmployToPRojec', false));
+            await dispatch(getProjectDetail());
+            await dispatch(getEmployeesList)
+            return resolve(true);
+        })
+        .catch((err) => {
+            if(err.response &&  err.response.data)
+                return reject(err.response.data)
+            else
+                return reject({error: true, message: `"error: ${err}`})
         })
     })
 }
