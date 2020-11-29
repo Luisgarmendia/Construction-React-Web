@@ -4,7 +4,7 @@ import Input from '../../../../Reusables/Input';
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../../Reusables/Button';
-import { SetNewProject } from '../../../../../Redux/Actions/Projects';
+import { setNewUsers } from '../../../../../Redux/Actions/User';
 import { changeStatus } from '../../../../../Redux/Actions/Modals';
 import MuiAlert from '@material-ui/lab/Alert';
 import { changeSnackbarStatus } from '../../../../../Redux/SnackbarsStatus';
@@ -14,13 +14,13 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const AddUser = () => {
+const AddUser = (props) => {
     const dispatch = useDispatch();
     const show = useSelector(state => state.modalStatus.userOPen)
     const customer = useSelector(state => state.clients.clientList)
     const {register, errors, handleSubmit, reset, control } = useForm();
     const onSubmit = (data) => {
-        dispatch(SetNewProject(data));
+        dispatch(setNewUsers(data));
     }
     var snackStatus = useSelector(state => state.snackbar.user)
     const vertical = 'top';
@@ -57,7 +57,7 @@ const AddUser = () => {
                                 <Input 
                                     type="text"
                                     placeholder="First name"
-                                    name="fistName"
+                                    name="firsName"
                                     constant={register}
                                     required={true}
                                     messageError={errors?.fistName?.message} />
@@ -85,26 +85,22 @@ const AddUser = () => {
                                     messageError={errors?.email?.message} />
                             </div>
 
-                            <div className="col-sm-6">
-                                <h5>Role</h5>
-                                <Controller
-                                as={<select name="role" 
-                                ref={register({
-                                    required: "select one option"
-                                })}>
-                                <option value=""></option>
-                                {customer.map((item, index) =>
-                                
-                                <option key={index} value={item._id}>{item.name}</option>)}
-                                </select>  }
-                                control={control}
-                                valueName="startDate" // DateSelect value's name is selected
-                                onChange={([selected]) => selected}
-                                name="startDate"
-                                className="input"
-                                placeholderText="Select date"
-                                />
-                            </div>
+                           <div className="col-sm-6">
+                               <h5>Role</h5>
+                               <select 
+                               name="role"
+                               constant={register}
+                               required={true}
+                               >
+                                <option value="1">Director</option>
+                                <option value="2">Operation</option>
+                                <option value="3">Administration</option>
+                                <option value="4">Project Administrator</option>
+                                <option value="5">Project Analyst</option>
+                                <option value="6">Project Manager</option>
+                                <option value="7">Supervisor</option>
+                                <option value="8">Employee</option></select>
+                           </div>
 
                             <div className="col-sm-6">
                                 <h5>Password *</h5>

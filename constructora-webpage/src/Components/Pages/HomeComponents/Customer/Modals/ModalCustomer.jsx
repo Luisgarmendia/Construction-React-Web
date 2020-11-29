@@ -80,7 +80,7 @@ const CustomerForm = (props) => {
                         <div className="col-sm-6">
                             <h5>Contact phone *</h5>
                             <Input
-                                type="text"
+                                type="number"
                                 placeholder="Contact phone"
                                 name="contactPhone"
                                 constant={register}

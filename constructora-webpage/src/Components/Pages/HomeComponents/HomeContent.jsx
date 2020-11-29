@@ -31,6 +31,7 @@ const HomeConten = (props) => {
         dispatch(getEmployeesList())
     }, [])
 
+
     return(
         <div className="container"> 
         <div className="text-left text-uppercase text-bold-700 mb-3">
@@ -57,7 +58,7 @@ const HomeConten = (props) => {
                 </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12">
-                <div className="card" onClick = { () => dispatch(changeStatus('pausedProject', !collapseStatus.pausedProjectOpen)) }>
+                <div  className="card" onClick = { () => dispatch(changeStatus('pausedProject', !collapseStatus.pausedProjectOpen)) }>
                     <a href={() => false}>
                         <div className="card-content">
                             <div className="card-body">

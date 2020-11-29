@@ -37,7 +37,8 @@ export default function employeesReducer(state = employees, action){
 
 export const getEmployeesList = () => async(dispatch, getState) => {
     return new Promise((resolve, reject) => {
-        axios.get(PORT + "/employees/GetEmployeesList")
+        var CompanyID = localStorage.getItem('tcpCompanyID')
+        axios.get(PORT + `/employees/GetEmployeesList/${CompanyID}`)
         .then((res) => {
             dispatch({
                 type: GET_EMPLOYEES,
@@ -72,8 +73,8 @@ export const setNewEmployee = (d) => async(dispatch, getState) => {
     "city" : d.city,
     "companyID": localStorage.getItem('tcpCompanyID'),
     "userRegistrant" : localStorage.getItem('tcpUserID'),
-    "hourlySalary" : d.hourlySalary,
-        })
+     "hourlySalary" : d.hourlySalary, 
+})
         .then((res) => {
             dispatch(changeStatus('employee', false));
             dispatch(getEmployeesList());

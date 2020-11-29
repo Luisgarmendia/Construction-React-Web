@@ -58,7 +58,8 @@ export default function projectsReducer(state = projects, action){
 
 export const getProjects = () => (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-        axios.get(PORT + '/project/getProjects')
+        var CompanyID = localStorage.getItem('tcpCompanyID')
+        axios.get(PORT + `/project/getProjects/${CompanyID}`)
         .then((res) => {
             dispatch({
                 type:GET_PROJECTS,
@@ -85,6 +86,8 @@ export const SetNewProject = (data) => (dispatch, getState) => {
                 'address': data.address,
                 'city' : data.city,
                 'code' : data.code,
+                'in':data.in,
+                'out':data.out,
                 'customer' : data.customer,
                 'startDate' : data.startDate,
                 'registrationDate' : Date.now(),

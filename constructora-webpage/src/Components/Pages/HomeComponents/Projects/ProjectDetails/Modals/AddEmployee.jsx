@@ -75,7 +75,8 @@ const AddProjectModal = () => {
                 title: "Hourly salary",
                 field: "salary",
                 type: 'numeric',
-                width: 150
+                width: 150,
+                validate: rowData => rowData.salary  < 1 ? { isValid: false, helperText: 'Salary cannot be zero' } : true, 
             }
             ];
 

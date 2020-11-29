@@ -90,7 +90,7 @@ const AddEmployeeModal = (props) => {
                         <div className="col-sm-4">
                             <h5>Number phone *</h5>
                             <Input 
-                                type="text"
+                                type="number"
                                 placeholder="Number phone"
                                 name="phone"
                                 constant={register}
@@ -101,7 +101,7 @@ const AddEmployeeModal = (props) => {
                         <div className="col-sm-4">
                             <h5>Alternative phone</h5>
                             <Input 
-                                type="text"
+                                type="number"
                                 placeholder="Alternative phone"
                                 name="phone2"
                                 constant={register}
@@ -125,9 +125,12 @@ const AddEmployeeModal = (props) => {
                             <h5>Asign project *</h5>
                             <SelectBox
                             name="Project"
+                            placeholder="Select a project"
                             constant={register}
                             required={true}
-                            list={projectList} />
+                            list={projectList}
+                            messageError={errors?.SelectBox?.message}
+                             />
                         </div>
 
                         <div className="col-sm-4">
@@ -175,7 +178,7 @@ const AddEmployeeModal = (props) => {
                         <div className="col-sm-4">
                             <h5>Hourly wage *</h5>
                             <Input 
-                                type="text"
+                                type="number"
                                 placeholder="Hourly wage"
                                 name="hourlySalary"
                                 constant={register}

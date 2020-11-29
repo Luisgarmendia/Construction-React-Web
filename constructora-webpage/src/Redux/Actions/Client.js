@@ -59,7 +59,8 @@ export const setClient = (data) => (dispatch, getState) => {
 
 export const getClientList = () => (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-        axios.get(PORT + '/getClientList')
+        var CompanyID = localStorage.getItem('tcpCompanyID')
+        axios.get(PORT + `/getClientList/${CompanyID}`)
         .then((res) => {
             dispatch({
                 type: GET_CLIENT_LIST,
