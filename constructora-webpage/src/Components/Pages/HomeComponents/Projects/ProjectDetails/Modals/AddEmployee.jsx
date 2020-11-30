@@ -15,6 +15,7 @@ import { setEmployeesToProject } from '../../../../../../Redux/Actions/Projects'
         return <MuiAlert elevation={6} variant="filled" {...props} />;
         }
     
+        
 const AddProjectModal = () => {
     const dispatch = useDispatch();
     const listInactiveEmployees = useSelector(state => state.employees.inactives);

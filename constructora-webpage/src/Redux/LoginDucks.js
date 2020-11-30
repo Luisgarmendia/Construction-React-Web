@@ -88,6 +88,7 @@ export const signUp = (data, history) => (dispatch, getState) => {
             })
             dispatch(changeSnackbarStatus('signup', false));
             history.push('/')
+            
             dispatch(loadingChangeStatus(false));
             return resolve(res.data)
         })

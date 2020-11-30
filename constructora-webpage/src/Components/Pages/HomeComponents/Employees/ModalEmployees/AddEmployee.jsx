@@ -16,6 +16,7 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+
 const AddEmployeeModal = (props) => {
     const dispatch = useDispatch();
     const show = useSelector(state => state.modalStatus.employeeOpen);

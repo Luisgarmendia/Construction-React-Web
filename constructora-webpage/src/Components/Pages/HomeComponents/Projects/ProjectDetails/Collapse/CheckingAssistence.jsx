@@ -13,6 +13,7 @@ const CheckingCollapse = () => {
     
     const [checkedList, setCheckedList] = useState([]);
 
+
     
     const dat = {
             columns: [

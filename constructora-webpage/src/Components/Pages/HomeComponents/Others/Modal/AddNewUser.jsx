@@ -102,6 +102,7 @@ const AddUser = (props) => {
                                 <option value="8">Employee</option></select>
                            </div>
 
+
                             <div className="col-sm-6">
                                 <h5>Password *</h5>
                                 <Input 

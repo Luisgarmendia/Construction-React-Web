@@ -18,7 +18,8 @@ import {
   function Alert(props) {
       return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-  
+ 
+    
 const AddProjectModal = () => {
     const dispatch = useDispatch();
     const show = useSelector(state => state.modalStatus.projectOpen)

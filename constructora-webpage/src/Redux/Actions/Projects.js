@@ -60,6 +60,7 @@ export const getProjects = () => (dispatch, getState) => {
     return new Promise((resolve, reject) => {
         var CompanyID = localStorage.getItem('tcpCompanyID')
         axios.get(PORT + `/project/getProjects/${CompanyID}`)
+        
         .then((res) => {
             dispatch({
                 type:GET_PROJECTS,

@@ -39,6 +39,7 @@ export const getEmployeesList = () => async(dispatch, getState) => {
     return new Promise((resolve, reject) => {
         var CompanyID = localStorage.getItem('tcpCompanyID')
         axios.get(PORT + `/employees/GetEmployeesList/${CompanyID}`)
+        
         .then((res) => {
             dispatch({
                 type: GET_EMPLOYEES,
