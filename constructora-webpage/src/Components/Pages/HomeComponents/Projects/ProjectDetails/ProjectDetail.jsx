@@ -95,7 +95,7 @@ const ProjectDetail = (props) => {
             </div>
         </div>
         <AddProjectModal />
-            <CheckingCollapse />
+            <CheckingCollapse proyectID={id} />
             <SummaryCollapse />
             </div>
         </div>

@@ -8,7 +8,7 @@ const Home = () => {
         <Fragment>
             <NavBar />
             <HomeContent />
-            </Fragment>
+        </Fragment>
     )
 }
 

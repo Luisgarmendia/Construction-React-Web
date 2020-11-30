@@ -5,7 +5,9 @@ import {LogOut} from '../../../Redux/LoginDucks';
 import {
     Link, withRouter
 } from "react-router-dom";
-import { DesktopWindows } from '@material-ui/icons';
+
+import {  IconButton } from "@material-ui/core";
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 
 
@@ -30,6 +32,14 @@ const NavBar = (props) => {
 
             <h1 className="text-center text-uppercase">Techno Construction Plus</h1>
             <hr className="my-2" />
+             <div className="Logout">
+                    <IconButton  onClick={()=>{
+                        dispatch(LogOut(history))
+                        }}>Logout
+                        <ArrowForwardIosIcon className="" fontSize="inherit" >
+                        </ArrowForwardIosIcon>
+                    </IconButton>
+                </div>
         </header>
     );
 }

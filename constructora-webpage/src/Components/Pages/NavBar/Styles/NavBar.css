@@ -12,5 +12,8 @@
     background-color: transparent !important;
     align-items: center;
 }
-
+.Logout{
+    float: right;
+    margin-right: 160px;
+}
 

@@ -107,11 +107,10 @@ export const signUp = (data, history) => (dispatch, getState) => {
 export const LogOut =  (history) => (dispatch, getState) => {
     return new Promise((resolve, reject) => {
         try {
-            
-    localStorage.clear();
-    history.push('/');
-    resolve(true);
-    return true;
+            localStorage.clear();
+            history.push('/');
+            resolve(true);
+            return true;
         } catch (error) {
             console.log(error);
         }

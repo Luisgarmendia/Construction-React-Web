@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
+
+import {withRouter} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import MaterialTable from 'material-table';
 import { Collapse } from 'react-bootstrap';
+import {setCheckedAssistence} from '../../../../../../Redux/Actions/CheckingAssistence'
 import { changeStatus } from '../../../../../../Redux/Actions/Modals';
 import Button from '../../../../../Reusables/Button';
 
-const CheckingCollapse = () => {
+const CheckingCollapse = (props) => {
+    const { proyectID } = props;
+    const { history } = props;
     const isOpen = useSelector(state => state.collapseStatus.checkListEmployees);
     const a = useSelector(state => state.projects.projectDetail.employees);
     const [employeesList, setEmployeeList] = useState(a);
@@ -17,7 +22,6 @@ const CheckingCollapse = () => {
     
     const dat = {
             columns: [
-
             {
                 title: "Nickname",
                 field: "_id.nickName",
@@ -70,17 +74,16 @@ const CheckingCollapse = () => {
                                     const dataUpdate = [...employeesList];
                                     const index = oldData.tableData.id;
                                     const add = dataUpdate[index];
-                                    setCheckedList([...employeesList, add])
+                                    setCheckedList([...checkedList,add])
                                     dataUpdate.splice(index, 1);
                                     setEmployeeList([...dataUpdate]);
-                        
                                     resolve();
                                     }, 100)
                                 }),
                             }}
                         />
 
-                                    {checkedList.length > 0 &&
+                        {checkedList.length > 0 &&
                                 <React.Fragment>
                                     <h2 className="mt-5">Checked employees</h2>
                                 <MaterialTable
@@ -103,12 +106,13 @@ const CheckingCollapse = () => {
                                     onRowDelete: oldData =>
                                         new Promise((resolve, reject) => {
                                             setTimeout(() => {
-                                            const dataDelete = [...checkedList];
-                                            const index = oldData.tableData.id;
-                                            dataDelete.splice(index, 1);
-                                            setCheckedList([...dataDelete]);
-
-                                            resolve();
+                                                const dataDelete = [...checkedList];
+                                                const index = oldData.tableData.id;
+                                                const add = dataDelete[index];
+                                                setEmployeeList([...employeesList,add]);
+                                                dataDelete.splice(index, 1);
+                                                setCheckedList([...dataDelete]);
+                                                resolve();
                                             }, 100)
                                         }),
                                     }}
@@ -119,8 +123,11 @@ const CheckingCollapse = () => {
                     <div className="col-4 my-2 mx-auto">
                     <Button
                             onClick={function(){
-                                dispatch();
-                                setCheckedList([])}}
+                                dispatch(setCheckedAssistence(proyectID, checkedList, history ));
+                                setCheckedList([])
+                                
+                                }
+                            }
                             type="submit"
                             text="Save" />
                     </div>
@@ -130,4 +137,4 @@ const CheckingCollapse = () => {
 }
 
 
-export default CheckingCollapse;
+export default withRouter(CheckingCollapse);
