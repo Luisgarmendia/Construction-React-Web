@@ -10,7 +10,9 @@ const CheckingCollapse = () => {
     const a = useSelector(state => state.projects.projectDetail.employees);
     const [employeesList, setEmployeeList] = useState(a);
     const dispatch = useDispatch();
+    
     const [checkedList, setCheckedList] = useState([]);
+
 
     
     const dat = {
@@ -40,7 +42,7 @@ const CheckingCollapse = () => {
                 title: "In",
                 field: "in",
                 sort: "asc",    
-                type: 'date',
+                type: 'time',
                 width: 150
             },
             {

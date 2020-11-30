@@ -18,7 +18,8 @@ import {
   function Alert(props) {
       return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-  
+ 
+    
 const AddProjectModal = () => {
     const dispatch = useDispatch();
     const show = useSelector(state => state.modalStatus.projectOpen)
@@ -160,11 +161,36 @@ const AddProjectModal = () => {
                         {errors.func && <p style={{color:'red'}}> {errors.startDate.message}</p> }       
                     </div>
 
+                     <div className="col-xl-4 col-lg-6 col-sm-12">
+                    <h5>In</h5>
+                    <Input
+                        type="time"  
+                        name="in" 
+                        constant={register}
+                        required={true} 
+                        messageError={errors?.message}
+                        />
+                        
+                    </div>
+                     <div className="col-xl-4 col-lg-6 col-sm-12">
+                    <h5>Out</h5>
+                    <Input
+                        type="time"  
+                        name="out" 
+                        constant={register}
+                        required={true}
+                        messageError={errors?.message} />
+                        
+                    </div>
+                 </div>
+                </div>
+                 <div className="row justify-content-center">
+                            <div className="col-sm-6 col-lg-3 my-3">
+                   
                     <Button
                     type="submit"
                     text="Save" />
-                    </div>
-                </div>    
+                   </div></div>    
             </form> 
         </Modal.Body>
       </Modal>

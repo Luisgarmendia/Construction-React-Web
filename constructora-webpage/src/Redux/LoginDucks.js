@@ -87,7 +87,8 @@ export const signUp = (data, history) => (dispatch, getState) => {
                 token: res.token
             })
             dispatch(changeSnackbarStatus('signup', false));
-            history.push('/home')
+            history.push('/')
+            
             dispatch(loadingChangeStatus(false));
             return resolve(res.data)
         })
@@ -101,4 +102,18 @@ export const signUp = (data, history) => (dispatch, getState) => {
         })
     
 })
+}
+
+export const LogOut =  (history) => (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+        try {
+            
+    localStorage.clear();
+    history.push('/');
+    resolve(true);
+    return true;
+        } catch (error) {
+            console.log(error);
+        }
+    })
 }

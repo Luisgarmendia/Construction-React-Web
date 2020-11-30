@@ -53,7 +53,9 @@ export const setNewHotel = (data) => (dispatch, getState) => {
 
 export const getHotelList = () => (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-        axios.get(PORT + '/other/GetHotelList')
+        var CompanyID = localStorage.getItem('tcpCompanyID')
+        axios.get(PORT + `/other/GetHotelList/${CompanyID}`)
+        
         .then((res) => {
             dispatch({
                 type:GET_HOTELS,
