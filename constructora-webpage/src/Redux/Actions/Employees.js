@@ -8,9 +8,22 @@ const employees = {
     inactives: []
 }
 
+const Summary= {
+    _id:"",
+    firstName:"",
+    lastName:"",
+    regularTime:"",
+    overTime:"",
+    regularPay:"",
+    overPay:"",
+    total:""
+}
+
+let DataSummary=[]
 ///Types
 
 const GET_EMPLOYEES = "getEmployees";
+const GET_EMPLOYEESSUMMARY = "getEmployeesSummary";
 const SET_NEWEMPLOYE ="SETnewEmployeq";
 
 ///Reducer
@@ -55,6 +68,50 @@ export const getEmployeesList = () => async(dispatch, getState) => {
         })
     })
 } 
+export const getSummaryEmployees = (ProjectID) => async(dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+        axios.get(PORT + `/employees/GetSummaryEmployees/${ProjectID}`)
+        .then((res) => {
+            for (const key1 in res.data) {
+                if (res.data.employees.hasOwnProperty(key1)) {
+                    const element = res.data[key1];
+                    for (const key2 in element.data) {
+                        if (element.data.hasOwnProperty(key2)) {
+                            const data = element.data[key2];
+                            let regularTime = data.hour>8.5? 8.5 :data.hour
+                            let overTime    = data.hour>8.5? data.hour-8.5 :0
+                            let regularPay  = regularTime * element.salary 
+                            let overPay     = overTime*element.salary 
+                            let total       = overPay + regularPay;
+                            let dataComplete = new Summary({
+                                _id:element._id,
+                                firstName:element.firstName,
+                                lastName:element.lastName,
+                                regularTime: regularTime,
+                                overTime: overTime,
+                                regularPay: regularPay,
+                                overPay: overPay,
+                                total: total
+                            })
+                            DataSummary.push(dataComplete)
+                        }
+                    }
+                }
+            }
+            dispatch({
+                type: GET_EMPLOYEESSUMMARY,
+                payload: DataSummary
+            });
+            return resolve(DataSummary)
+        })
+        .catch((err) => {
+            if(err.response && err.response.data)
+                return reject(err.response.data)
+            else
+                return reject({error: true, message: `Error: ${err}`})
+        })
+    })
+}
 
 export const setNewEmployee = (d) => async(dispatch, getState) => {
     return new Promise((resolve, reject) => {

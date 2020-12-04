@@ -40,11 +40,9 @@ export const signIn = (email, password, history) => async (dispatch, getState) =
             localStorage.setItem('tcpToken', res.data.token);
             localStorage.setItem('tcpUserID', res.data.user._id);
             localStorage.setItem('tcpCompanyID', res.data.user.companyID);
-
             dispatch({
                 type: POST_LOGIN,
                 payload: res.data.user,
-
             })
             dispatch(changeSnackbarStatus('signin', false));
             history.push('/home')

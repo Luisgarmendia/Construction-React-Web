@@ -60,13 +60,17 @@ const SummaryCollapse = () => {
             <Collapse in={isOpen}>
                 <div>
                     <MaterialTable
-                        title={`Summary ${Date.toString}` }
+                        title={`Summary ${Date().toLocaleString()}` }
                         columns={dat.columns}
                         data={[
                             { nickName: 'Mehmet', firstName: 'Baran', lastName: 1987, salary: 63 },
                             { nickName: 'Zerya Betül', firstName: 'Baran', lastName: 2017, salary: 34 },
                         ]}
                         />
+                         <div className="col-4 my-2 mx-auto">
+               
+                    </div>
+                    
                 </div>
             </Collapse>
         )

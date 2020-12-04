@@ -17,9 +17,6 @@ const CheckingCollapse = (props) => {
     const dispatch = useDispatch();
     
     const [checkedList, setCheckedList] = useState([]);
-
-
-    
     const dat = {
             columns: [
             {
@@ -71,13 +68,13 @@ const CheckingCollapse = (props) => {
                             onRowUpdate: (newData, oldData) =>
                                 new Promise((resolve, reject) => {
                                     setTimeout(() => {
-                                    const dataUpdate = [...employeesList];
-                                    const index = oldData.tableData.id;
-                                    const add = dataUpdate[index];
-                                    setCheckedList([...checkedList,add])
-                                    dataUpdate.splice(index, 1);
-                                    setEmployeeList([...dataUpdate]);
-                                    resolve();
+                                        const dataUpdate = [...employeesList];
+                                        const index = oldData.tableData.id;
+                                        dataUpdate.splice(index, 1);
+                                        const add = newData;
+                                        setEmployeeList([...dataUpdate]);
+                                        setCheckedList([...checkedList,add])
+                                        resolve();
                                     }, 100)
                                 }),
                             }}
@@ -99,7 +96,6 @@ const CheckingCollapse = (props) => {
                                         const index = oldData.tableData.id;
                                         dataUpdate[index] = newData;
                                         setCheckedList([...dataUpdate]);
-
                                         resolve();
                                         }, 100)
                                     }),
@@ -109,9 +105,9 @@ const CheckingCollapse = (props) => {
                                                 const dataDelete = [...checkedList];
                                                 const index = oldData.tableData.id;
                                                 const add = dataDelete[index];
-                                                setEmployeeList([...employeesList,add]);
                                                 dataDelete.splice(index, 1);
                                                 setCheckedList([...dataDelete]);
+                                                setEmployeeList([...employeesList,add]);
                                                 resolve();
                                             }, 100)
                                         }),
@@ -123,9 +119,10 @@ const CheckingCollapse = (props) => {
                     <div className="col-4 my-2 mx-auto">
                     <Button
                             onClick={function(){
-                                dispatch(setCheckedAssistence(proyectID, checkedList, history ));
-                                setCheckedList([])
-                                
+                                if(checkedList.length>0){
+                                    dispatch(setCheckedAssistence(proyectID, checkedList, history ));
+                                    setCheckedList([]);
+                                    }
                                 }
                             }
                             type="submit"
